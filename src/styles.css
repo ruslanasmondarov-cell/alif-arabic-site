@@ -4458,3 +4458,356 @@ footer {
     flex-direction: column;
   }
 }
+
+/* Responsive checkout and auth refinements */
+.nav-mobile-auth {
+  display: none;
+}
+
+.checkout-auth-lock {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.checkout-auth-lock svg {
+  color: var(--accent);
+}
+
+.checkout-auth-lock strong,
+.checkout-auth-lock p {
+  margin: 0;
+}
+
+.checkout-auth-lock strong {
+  display: block;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.checkout-auth-lock p {
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 750;
+}
+
+.checkout-auth-lock button {
+  grid-column: 1 / -1;
+  min-height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.checkout-auth-lock button:hover {
+  transform: translateY(-2px);
+  background: var(--accent);
+  color: #fff;
+}
+
+.order-summary-pro {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+
+.selected-course-card {
+  overflow: hidden;
+}
+
+.selected-course-card .section-head {
+  align-items: center;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 10%, transparent), transparent 52%),
+    var(--surface-strong);
+}
+
+.selected-course-card .section-head > strong {
+  color: var(--accent);
+}
+
+.checkout-pro .checkout-card,
+.checkout-pro .order-summary-pro {
+  box-shadow: var(--lift-shadow);
+}
+
+.checkout-pro .form-grid,
+.checkout-pro .slot-grid-pro,
+.checkout-pro .payment-methods {
+  gap: 12px;
+}
+
+.checkout-pro .payment-methods button {
+  min-height: 86px;
+}
+
+.checkout-pro .button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
+@media (max-width: 1180px) {
+  .nav {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 14px;
+  }
+
+  .nav-links {
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .auth-actions.compact button {
+    min-height: 38px;
+    padding: 0 11px;
+  }
+
+  .checkout-pro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .order-summary-pro {
+    position: static;
+  }
+
+  .checkout-pro .checkout-card,
+  .checkout-pro .order-summary-pro {
+    max-width: 980px;
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .nav {
+    grid-template-columns: auto auto;
+    align-items: center;
+  }
+
+  .nav-tools {
+    gap: 8px;
+  }
+
+  .nav-links {
+    grid-column: 1 / -1;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding-top: 10px;
+    overflow: visible;
+  }
+
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface-strong);
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+
+  .nav-mobile-auth {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .nav-mobile-auth button {
+    min-height: 42px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .auth-actions.compact {
+    display: none;
+  }
+
+  .checkout-pro {
+    gap: 14px;
+    padding-top: 36px;
+    padding-bottom: 48px;
+  }
+
+  .checkout-card,
+  .order-summary-pro {
+    padding: 18px;
+  }
+
+  .selected-course-card .section-head {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 14px;
+  }
+
+  .checkout-pro .form-grid,
+  .checkout-pro .payment-methods,
+  .checkout-pro .slot-grid-pro {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-pro .payment-methods button,
+  .booking-slots button {
+    min-height: 74px;
+  }
+
+  .summary-lines .total strong {
+    font-size: 28px;
+  }
+
+  .checkout-auth-lock {
+    grid-template-columns: 22px minmax(0, 1fr);
+    padding: 14px;
+  }
+
+  .checkout-consent {
+    align-items: flex-start;
+  }
+
+  .checkout-consent span {
+    line-height: 1.35;
+  }
+}
+
+/* Paid course workspace */
+.course-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+}
+
+.course-card {
+  align-content: start;
+}
+
+.course-lesson-checklist {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.course-lesson-checklist button {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  min-height: 58px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-strong);
+  color: var(--ink);
+  text-align: left;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.course-lesson-checklist button:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+}
+
+.course-lesson-checklist button.done {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent-2) 14%, transparent), transparent 64%),
+    var(--surface-strong);
+}
+
+.course-lesson-checklist button > span {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.course-lesson-checklist strong,
+.course-lesson-checklist small,
+.course-lesson-checklist b {
+  display: block;
+}
+
+.course-lesson-checklist strong {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.15;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.course-lesson-checklist small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.course-lesson-checklist b {
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--accent);
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.course-lesson-checklist button.done b {
+  background: var(--accent-2);
+  color: #fff;
+  border-color: transparent;
+}
+
+@media (max-width: 900px) {
+  .course-card {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .course-lesson-checklist button {
+    grid-template-columns: 34px minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .course-lesson-checklist button > span {
+    width: 34px;
+    height: 34px;
+  }
+
+  .course-lesson-checklist b {
+    grid-column: 2;
+    width: fit-content;
+  }
+}

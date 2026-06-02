@@ -23,7 +23,6 @@ const navItems = [
   ['home', 'Главная'],
   ['program', 'Программа'],
   ['pricing', 'Тарифы'],
-  ['payment', 'Оплата'],
   ['courses', 'Мои курсы'],
   ['profile', 'Профиль'],
   ['faq', 'FAQ'],
@@ -158,6 +157,35 @@ const lessons = [
   { id: '06', module: 'sprint', title: 'Мини-диалог', duration: 21, status: 'locked' },
 ];
 
+const courseLessonsByPlan = {
+  base: [
+    { id: 'base-01', title: 'Алфавит и формы букв', duration: 18 },
+    { id: 'base-02', title: 'Огласовки и короткие слова', duration: 22 },
+    { id: 'base-03', title: 'Чтение простых фраз', duration: 20 },
+    { id: 'base-04', title: 'Базовые приветствия', duration: 16 },
+    { id: 'base-05', title: 'Мини-диалог для поездки', duration: 24 },
+  ],
+  pro: [
+    { id: 'pro-01', title: 'Алфавит и произношение', duration: 18 },
+    { id: 'pro-02', title: 'Чтение и первые слова', duration: 22 },
+    { id: 'pro-03', title: 'Приветствие и знакомство', duration: 19 },
+    { id: 'pro-04', title: 'Рассказ о себе', duration: 24 },
+    { id: 'pro-05', title: 'Вопросы и ответы', duration: 21 },
+    { id: 'pro-06', title: 'Голосовая практика', duration: 26 },
+    { id: 'pro-07', title: 'Диалог с преподавателем', duration: 30 },
+  ],
+  vip: [
+    { id: 'vip-01', title: 'Диагностика уровня и цель', duration: 25 },
+    { id: 'vip-02', title: 'Личный план произношения', duration: 30 },
+    { id: 'vip-03', title: 'Разговорные сценарии', duration: 28 },
+    { id: 'vip-04', title: 'Грамматика через речь', duration: 26 },
+    { id: 'vip-05', title: 'Персональная голосовая правка', duration: 32 },
+    { id: 'vip-06', title: 'Практика живого диалога', duration: 34 },
+    { id: 'vip-07', title: 'Финальная разговорная сцена', duration: 30 },
+    { id: 'vip-08', title: 'План дальнейшего обучения', duration: 22 },
+  ],
+};
+
 const tasks = [
   'Повторить 12 букв вслух',
   'Записать голос на 45 секунд',
@@ -244,14 +272,17 @@ function getDiscount(plan, code) {
 }
 
 function createCourseRecord({ plan, slot, promoCode, discount, total, method }) {
+  const planLessons = courseLessonsByPlan[plan.id] || courseLessonsByPlan.base;
+
   return {
     id: `${plan.id}-${Date.now()}`,
     planId: plan.id,
     planName: plan.name,
     format: plan.format,
     schedule: plan.schedule,
-    lessonsTotal: 36,
-    lessonsDone: plan.id === 'base' ? 2 : plan.id === 'pro' ? 4 : 6,
+    lessonsTotal: planLessons.length,
+    lessonsDone: 0,
+    completedLessonIds: [],
     status: 'active',
     paidAt: new Date().toISOString(),
     start: slot,
@@ -390,6 +421,12 @@ function Header({ activePage, profile, isLoggedIn, onLogin, onRegister }) {
             {label}
           </a>
         ))}
+        {!isLoggedIn && (
+          <div className="nav-mobile-auth">
+            <button type="button" onClick={onLogin}>Вход</button>
+            <button type="button" onClick={onRegister}>Регистрация</button>
+          </div>
+        )}
       </div>
       <div className={`nav-tools ${isLoggedIn ? '' : 'guest'}`}>
         {!isLoggedIn && (
@@ -722,7 +759,7 @@ function PricingPage({ selectedPlanId, onSelectPlan }) {
   );
 }
 
-function PaymentPage({ profile, selectedPlan, onCompletePayment, onProfileChange }) {
+function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onProfileChange, onRequireLogin, onRequireRegister }) {
   const [selectedSlot, setSelectedSlot] = useState(bookingSlots[0]);
   const [method, setMethod] = useState('card');
   const [promoCode, setPromoCode] = useState(profile.promoCode || 'ALIFSTART');
@@ -745,6 +782,11 @@ function PaymentPage({ profile, selectedPlan, onCompletePayment, onProfileChange
   function submitPayment() {
     if (!canPay) return;
     const cleanPromo = promoCode.trim().toUpperCase();
+    if (!isLoggedIn) {
+      onRequireLogin();
+      return;
+    }
+
     const nextCourse = createCourseRecord({
       plan: selectedPlan,
       slot: selectedSlot,
@@ -856,18 +898,29 @@ function PaymentPage({ profile, selectedPlan, onCompletePayment, onProfileChange
             <span><small>Скидка</small><strong>{discount ? `-${formatPrice(discount)}` : '0 ₽'}</strong></span>
             <span className="total"><small>К оплате</small><strong>{formatPrice(total)}</strong></span>
           </div>
+          {!isLoggedIn && (
+            <div className="checkout-auth-lock">
+              <Lock size={18} />
+              <div>
+                <strong>Войдите перед оплатой</strong>
+                <p>Так курс закрепится за вашим аккаунтом и появится в разделе “Мои курсы”.</p>
+              </div>
+              <button type="button" onClick={onRequireLogin}>Вход</button>
+              <button type="button" onClick={onRequireRegister}>Регистрация</button>
+            </div>
+          )}
           <label className="checkout-consent">
             <input type="checkbox" checked={accepted} onChange={() => setAccepted((value) => !value)} />
             <span>Согласен с условиями доступа к курсу</span>
           </label>
-          <ActionButton icon={Receipt} onClick={submitPayment} disabled={!canPay}>Оплатить курс</ActionButton>
+          <ActionButton icon={Receipt} onClick={submitPayment} disabled={!canPay || !isLoggedIn}>Оплатить курс</ActionButton>
         </aside>
       </section>
     </div>
   );
 }
 
-function CoursesPage({ courses, onCompleteCourse }) {
+function CoursesPage({ courses, onToggleLesson, onCompleteCourse }) {
   const activeCourses = courses.filter((course) => course.status !== 'completed');
   const completedCourses = courses.filter((course) => course.status === 'completed');
 
@@ -897,7 +950,9 @@ function CoursesPage({ courses, onCompleteCourse }) {
             </div>
             <div className="course-grid">
               {activeCourses.map((course) => {
-                const progress = Math.min(100, Math.max(0, Math.round((course.lessonsDone / course.lessonsTotal) * 100)));
+                const courseLessons = courseLessonsByPlan[course.planId] || courseLessonsByPlan.base;
+                const completedLessonIds = course.completedLessonIds || [];
+                const progress = Math.min(100, Math.max(0, Math.round((completedLessonIds.length / courseLessons.length) * 100)));
                 return (
                   <article className="course-card" key={course.id}>
                     <span>{course.planName}</span>
@@ -907,8 +962,27 @@ function CoursesPage({ courses, onCompleteCourse }) {
                       <i style={{ width: `${progress}%` }} />
                     </div>
                     <strong>{progress}% курса</strong>
+                    <div className="course-lesson-checklist">
+                      {courseLessons.map((lesson, index) => {
+                        const isDone = completedLessonIds.includes(lesson.id);
+                        return (
+                          <button
+                            className={isDone ? 'done' : ''}
+                            key={lesson.id}
+                            type="button"
+                            onClick={() => onToggleLesson(course.id, lesson.id)}
+                          >
+                            <span>{String(index + 1).padStart(2, '0')}</span>
+                            <div>
+                              <strong>{lesson.title}</strong>
+                              <small>{lesson.duration} минут</small>
+                            </div>
+                            <b>{isDone ? 'пройден' : 'не пройден'}</b>
+                          </button>
+                        );
+                      })}
+                    </div>
                     <div className="course-actions">
-                      <LinkButton to="program" variant="dark">Смотреть программу</LinkButton>
                       <ActionButton variant="outline" onClick={() => onCompleteCourse(course.id)}>Отметить пройденным</ActionButton>
                     </div>
                   </article>
@@ -1353,6 +1427,7 @@ function App() {
   const [toast, setToast] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(() => getStored('alif-auth', false));
   const [authMode, setAuthMode] = useState('login');
+  const [pendingCheckout, setPendingCheckout] = useState(false);
 
   const selectedPlan = useMemo(() => plans.find((plan) => plan.id === selectedPlanId) || plans[1], [selectedPlanId]);
   const activeCourseForProgress = courses.find((course) => course.status !== 'completed');
@@ -1391,11 +1466,27 @@ function App() {
     updateSeo(page);
   }, [page]);
 
+  useEffect(() => {
+    if (page === 'payment' && !isLoggedIn) {
+      setPendingCheckout(true);
+      setAuthMode('register');
+    }
+  }, [page, isLoggedIn]);
+
   function selectPlan(planId, goToPayment = false) {
     setSelectedPlanId(planId);
     setProfile((current) => ({ ...current, planId }));
     setToast('Тариф выбран');
-    if (goToPayment) navigate('payment');
+    if (goToPayment) {
+      if (isLoggedIn) {
+        navigate('payment');
+      } else {
+        setPendingCheckout(true);
+        setAuthMode('register');
+        setToast('Войдите или зарегистрируйтесь, чтобы оформить тариф');
+        navigate('profile');
+      }
+    }
   }
 
   function toggleTask(task) {
@@ -1410,14 +1501,24 @@ function App() {
     setProfile((current) => ({ ...current, ...patch }));
     setIsLoggedIn(true);
     setToast('Вход выполнен');
-    navigate('profile');
+    if (pendingCheckout) {
+      setPendingCheckout(false);
+      navigate('payment');
+    } else {
+      navigate('profile');
+    }
   }
 
   function register(patch = {}) {
     setProfile((current) => ({ ...current, ...patch }));
     setIsLoggedIn(true);
     setToast('Аккаунт создан');
-    navigate('profile');
+    if (pendingCheckout) {
+      setPendingCheckout(false);
+      navigate('payment');
+    } else {
+      navigate('profile');
+    }
   }
 
   function completePayment(course) {
@@ -1444,6 +1545,22 @@ function App() {
     setToast('Курс перенесен в историю');
   }
 
+  function toggleCourseLesson(courseId, lessonId) {
+    setCourses((current) => current.map((course) => {
+      if (course.id !== courseId) return course;
+      const completedLessonIds = course.completedLessonIds || [];
+      const nextCompletedLessonIds = completedLessonIds.includes(lessonId)
+        ? completedLessonIds.filter((id) => id !== lessonId)
+        : [...completedLessonIds, lessonId];
+
+      return {
+        ...course,
+        completedLessonIds: nextCompletedLessonIds,
+        lessonsDone: nextCompletedLessonIds.length,
+      };
+    }));
+  }
+
   function logout() {
     setIsLoggedIn(false);
     setToast('Вы вышли из аккаунта');
@@ -1468,17 +1585,28 @@ function App() {
       {page === 'home' && <HomePage progress={progress} selectedPlan={selectedPlan} onSelectPlan={selectPlan} />}
       {page === 'program' && <ProgramPage />}
       {page === 'pricing' && <PricingPage selectedPlanId={selectedPlanId} onSelectPlan={selectPlan} />}
-      {page === 'payment' && (
+      {page === 'payment' && (isLoggedIn ? (
         <PaymentPage
           profile={profile}
           selectedPlan={selectedPlan}
           booking={booking}
+          isLoggedIn={isLoggedIn}
           onProfileChange={updateProfile}
           onCompletePayment={completePayment}
+          onRequireLogin={() => {
+            setAuthMode('login');
+            navigate('profile');
+          }}
+          onRequireRegister={() => {
+            setAuthMode('register');
+            navigate('profile');
+          }}
         />
-      )}
+      ) : (
+        <AuthPage mode="register" onLogin={login} onRegister={register} />
+      ))}
       {page === 'courses' && (isLoggedIn ? (
-        <CoursesPage courses={courses} onCompleteCourse={completeCourse} />
+        <CoursesPage courses={courses} onToggleLesson={toggleCourseLesson} onCompleteCourse={completeCourse} />
       ) : (
         <AuthPage mode="login" onLogin={login} onRegister={register} />
       ))}
