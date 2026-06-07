@@ -1094,11 +1094,10 @@ function AuthPage({ mode = 'login', onLogin, onRegister }) {
 
   return (
     <div className="page">
-      <PageHero
-        eyebrow={activeMode === 'register' ? 'Регистрация' : 'Вход'}
-        title="Личный кабинет ученика"
-        visual={heroAuth}
-      />
+      <section className="auth-compact-hero">
+        <p className="eyebrow">{activeMode === 'register' ? 'Регистрация' : 'Вход'}</p>
+        <h1>{activeMode === 'register' ? 'Создать аккаунт' : 'Войти в аккаунт'}</h1>
+      </section>
       <section className="auth-section">
         <form className="auth-card" onSubmit={submit}>
           <p className="eyebrow">ALIF Arabic</p>

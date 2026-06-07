@@ -4440,6 +4440,23 @@ footer {
 }
 
 /* Responsive checkout and auth refinements */
+.auth-compact-hero {
+  display: grid;
+  gap: 8px;
+  padding: clamp(110px, 13vw, 150px) clamp(20px, 5vw, 70px) clamp(26px, 4vw, 42px);
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 18% 22%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 28%),
+    var(--bg);
+}
+
+.auth-compact-hero h1 {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(42px, 7vw, 86px);
+  line-height: 0.92;
+}
+
 .nav-mobile-auth {
   display: none;
 }
@@ -4677,6 +4694,36 @@ footer {
 }
 
 /* Paid course workspace */
+.refined-profile .profile-summary,
+.refined-profile .profile-promo,
+.refined-profile .profile-lessons-panel {
+  display: none;
+}
+
+.refined-profile .profile-workspace {
+  align-content: start;
+}
+
+.refined-profile .account-panel {
+  order: 1;
+}
+
+.refined-profile .profile-course-history {
+  order: 2;
+}
+
+.refined-profile .account-panel .section-head {
+  align-items: center;
+}
+
+.refined-profile .account-panel h2 {
+  font-size: clamp(34px, 4.8vw, 62px);
+}
+
+.refined-profile .profile-course-history {
+  margin-top: 10px;
+}
+
 .course-grid {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
 }
