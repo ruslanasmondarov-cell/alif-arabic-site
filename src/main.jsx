@@ -603,9 +603,8 @@ function HomePage({ progress, selectedPlan, onSelectPlan }) {
         {[
           ['01', 'Программа', 'модули и уроки', 'program'],
           ['02', 'Тарифы', 'форматы обучения', 'pricing'],
-          ['03', 'Оплата', 'оформление курса', 'payment'],
-          ['04', 'Профиль', 'данные и история', 'profile'],
-          ['05', 'FAQ', 'ответы перед стартом', 'faq'],
+          ['03', 'Профиль', 'данные и история', 'profile'],
+          ['04', 'FAQ', 'ответы перед стартом', 'faq'],
         ].map(([num, title, text, to]) => (
           <a href={`#/${to}`} key={to}>
             <span className="link-num">{num}</span>
@@ -1332,7 +1331,7 @@ function ProfilePage({
             </div>
             <div className="profile-settings-actions">
               <ActionButton onClick={() => saveProfile()}>Сохранить изменения</ActionButton>
-              <LinkButton to="payment" variant="outline">Оформить курс</LinkButton>
+              <LinkButton to="pricing" variant="outline">Выбрать тариф</LinkButton>
             </div>
           </section>
 
