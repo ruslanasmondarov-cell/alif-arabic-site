@@ -2850,13 +2850,6 @@ footer {
 }
 
 /* Purchase flow and cabinet refresh */
-.program-hero-metrics {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.program-hero-metrics span,
 .checkout-steps.pro span,
 .checkout-feature-grid span,
 .module-tags span,
@@ -2868,18 +2861,6 @@ footer {
   font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
-}
-
-.program-hero-metrics span {
-  display: grid;
-  gap: 4px;
-  padding: 12px;
-}
-
-.program-hero-metrics strong {
-  color: var(--accent);
-  font-size: 24px;
-  line-height: 1;
 }
 
 .program-studio,
@@ -3662,7 +3643,6 @@ footer {
     padding-right: 16px;
   }
 
-  .program-hero-metrics,
   .program-rail,
   .program-stage-head,
   .checkout-steps.pro,
@@ -4810,4 +4790,312 @@ footer {
     grid-column: 2;
     width: fit-content;
   }
+}
+
+/* Adaptive typography and calmer visual surfaces */
+h1,
+h2,
+h3 {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  text-wrap: balance;
+}
+
+h1 span,
+h2 span,
+h3 span {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+p,
+li,
+small,
+strong,
+button,
+a {
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
+}
+
+h1 {
+  max-width: 860px;
+  font-size: clamp(48px, 6.4vw, 104px);
+  line-height: 0.94;
+}
+
+h2 {
+  font-size: clamp(34px, 4.8vw, 72px);
+  line-height: 1;
+}
+
+h3 {
+  line-height: 1.08;
+}
+
+.page-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero > div {
+  position: relative;
+  z-index: 1;
+}
+
+.page-hero h1 {
+  max-width: 980px;
+  font-size: clamp(42px, 5.7vw, 90px);
+  line-height: 0.98;
+}
+
+.page-hero-simple {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: end;
+}
+
+.page-hero-with-art {
+  grid-template-columns: minmax(0, 0.58fr) minmax(320px, 0.42fr);
+  align-items: stretch;
+  gap: clamp(28px, 4vw, 64px);
+  min-height: clamp(520px, 62vh, 720px);
+  padding-right: 0;
+}
+
+.page-hero-copy {
+  display: grid;
+  align-content: center;
+}
+
+.page-hero-copy h1 {
+  max-width: 980px;
+}
+
+.page-hero-inline {
+  width: min(100%, 520px);
+  margin-top: 28px;
+}
+
+.page-hero-art {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  margin: calc(clamp(86px, 11vw, 150px) * -0.45) 0 calc(clamp(44px, 6vw, 78px) * -0.55);
+  overflow: hidden;
+  clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
+  background: var(--dark);
+}
+
+.page-hero-art::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(17, 19, 21, 0.54), transparent 46%),
+    linear-gradient(180deg, rgba(197, 31, 47, 0.16), transparent 44%, rgba(17, 19, 21, 0.18));
+  pointer-events: none;
+}
+
+.page-hero-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 52% 50%;
+  filter: saturate(0.98) contrast(1.08);
+}
+
+.hero-text,
+.page-hero-side > p,
+.method-lines p,
+.tariff-explain > p {
+  width: auto;
+  max-width: 700px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.tariff-explain > div,
+.tariff-explain > span {
+  box-shadow: none;
+}
+
+.stat-pill,
+.home-links a,
+.module-card,
+.program-overview article,
+.course-guarantees article,
+.plan-card,
+.pricing-strip article,
+.payment-panel,
+.summary-card,
+.faq-list article,
+.support-card,
+.auth-card,
+.auth-benefits,
+.code-menu,
+.progress-card,
+.profile-card,
+.profile-editor,
+.tasks-card,
+.billing-summary,
+.invoice-list article,
+.summary-tile,
+.promo-card,
+.profile-session-card,
+.profile-note,
+.profile-lessons-panel,
+.account-panel {
+  box-shadow: none;
+}
+
+.spotlight-photo {
+  margin: 0;
+  overflow: hidden;
+}
+
+.spotlight-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.split-section.compact .method-lines {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.spotlight-section {
+  grid-template-columns: minmax(0, 0.52fr) minmax(220px, 0.22fr) minmax(260px, 0.26fr);
+  align-items: start;
+}
+
+.selected-plan-info {
+  grid-column: 1;
+}
+
+.spotlight-photo {
+  grid-column: 2;
+  align-self: stretch;
+  min-height: 360px;
+}
+
+.mini-plans {
+  grid-column: 3;
+}
+
+.spotlight-photo img {
+  filter: saturate(0.96) contrast(1.04);
+}
+
+@media (max-width: 1180px) {
+  h1 {
+    font-size: clamp(44px, 7vw, 86px);
+  }
+
+  .page-hero h1 {
+    font-size: clamp(38px, 6.5vw, 76px);
+  }
+
+  .page-hero-with-art {
+    grid-template-columns: minmax(0, 0.62fr) minmax(280px, 0.38fr);
+    min-height: clamp(480px, 56vh, 640px);
+  }
+}
+
+@media (max-width: 1060px) {
+  .split-section.compact .method-lines,
+  .selected-plan-info,
+  .spotlight-photo,
+  .mini-plans {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .spotlight-section {
+    grid-template-columns: 1fr;
+  }
+
+  .spotlight-photo {
+    min-height: 280px;
+  }
+
+  .page-hero-with-art {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding-right: clamp(20px, 5vw, 70px);
+  }
+
+  .page-hero-art {
+    min-height: 300px;
+    margin: 10px 0 0;
+    clip-path: polygon(0 14%, 100% 0, 100% 100%, 0 100%);
+  }
+
+}
+
+@media (max-width: 680px) {
+  h1 {
+    font-size: clamp(40px, 11vw, 64px);
+    line-height: 1.02;
+  }
+
+  h2 {
+    font-size: clamp(30px, 9vw, 46px);
+    line-height: 1.04;
+  }
+
+  .page-hero h1 {
+    width: auto;
+    max-width: none;
+    font-size: clamp(28px, 8vw, 38px);
+    line-height: 1.06;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .page-hero-with-art {
+    gap: 24px;
+    padding-top: 72px;
+  }
+
+  .page-hero-art {
+    min-height: 220px;
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+
+  .page-hero-inline {
+    margin-top: 20px;
+  }
+
+  .page-hero-side > p,
+  .module-card p {
+    max-width: 100%;
+    word-break: normal;
+  }
+
+  .hero-text {
+    font-size: 16px;
+  }
+
+  .spotlight-photo {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+    height: auto;
+  }
+
+  .home-links strong {
+    font-size: clamp(24px, 8vw, 36px);
+    line-height: 1.05;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
 }

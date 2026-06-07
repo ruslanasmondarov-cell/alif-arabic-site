@@ -14,7 +14,14 @@ import {
 } from 'lucide-react';
 import './styles.css';
 import brandLogo from './assets/alif-brand.png';
+import heroAuth from './assets/hero-auth.png';
+import heroCourses from './assets/hero-courses.png';
 import heroCity from './assets/hero-city.png';
+import heroFaq from './assets/hero-faq.png';
+import heroPayment from './assets/hero-payment.png';
+import heroPricing from './assets/hero-pricing.png';
+import heroProfile from './assets/hero-profile.png';
+import heroProgram from './assets/hero-program.png';
 import studyCity from './assets/study-city.png';
 
 const pages = ['home', 'program', 'pricing', 'payment', 'courses', 'profile', 'faq'];
@@ -447,17 +454,17 @@ function Header({ activePage, profile, isLoggedIn, onLogin, onRegister }) {
   );
 }
 
-function PageHero({ eyebrow, title, text, children }) {
+function PageHero({ eyebrow, title, visual = heroProgram, children }) {
   return (
-    <section className="page-hero reveal">
-      <div>
+    <section className="page-hero reveal page-hero-with-art">
+      <div className="page-hero-copy">
         <p className="eyebrow">{eyebrow}</p>
         <h1>{title}</h1>
+        {children && <div className="page-hero-inline">{children}</div>}
       </div>
-      <div className="page-hero-side">
-        <p>{text}</p>
-        {children}
-      </div>
+      <figure className="page-hero-art" aria-hidden="true">
+        <img src={visual} alt="" />
+      </figure>
     </section>
   );
 }
@@ -560,6 +567,9 @@ function HomePage({ progress, selectedPlan, onSelectPlan }) {
             </div>
           </div>
         </div>
+        <figure className="spotlight-photo">
+          <img src={heroCity} alt="" />
+        </figure>
         <aside className="mini-plans">
           {plans.map((plan) => (
             <button
@@ -632,14 +642,8 @@ function ProgramPage() {
       <PageHero
         eyebrow="Программа"
         title="Маршрут от алфавита до разговора"
-        text="Модули собраны как дорожная карта: цель, практика, проверка и понятный следующий шаг."
-      >
-        <div className="program-hero-metrics">
-          <span><strong>4</strong> модуля</span>
-          <span><strong>36</strong> уроков</span>
-          <span><strong>3</strong> формата</span>
-        </div>
-      </PageHero>
+        visual={heroProgram}
+      />
 
       <section className="program-studio">
         <aside className="program-rail">
@@ -718,7 +722,7 @@ function PricingPage({ selectedPlanId, onSelectPlan }) {
       <PageHero
         eyebrow="Тарифы"
         title="Выбери курс и сразу перейди к оплате"
-        text="После выбора тарифа откроется оформление именно этого курса: слот старта, промокод, способ оплаты и итоговая сумма."
+        visual={heroPricing}
       />
       <section className="plans purchase-plans">
         <div className="plan-grid">
@@ -804,7 +808,7 @@ function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onP
       <PageHero
         eyebrow="Оплата и запись"
         title={`Оформление тарифа ${selectedPlan.name}`}
-        text="Проверь курс, выбери дату старта, добавь промокод и заверши демо-оплату. После оплаты курс появится в разделе “Мои курсы”."
+        visual={heroPayment}
       />
       <section className="checkout-pro">
         <div className="checkout-main">
@@ -929,7 +933,7 @@ function CoursesPage({ courses, onToggleLesson, onCompleteCourse }) {
       <PageHero
         eyebrow="Мои курсы"
         title="Купленные курсы и доступы"
-        text="Здесь живут все оплаченные тарифы: активные курсы, дата старта, сумма оплаты и история завершенных программ."
+        visual={heroCourses}
       />
       <section className="courses-page">
         {courses.length === 0 ? (
@@ -1094,7 +1098,7 @@ function AuthPage({ mode = 'login', onLogin, onRegister }) {
       <PageHero
         eyebrow={activeMode === 'register' ? 'Регистрация' : 'Вход'}
         title="Личный кабинет ученика"
-        text="Введи почту, получи одноразовый код и подтверди вход в личный кабинет."
+        visual={heroAuth}
       />
       <section className="auth-section">
         <form className="auth-card" onSubmit={submit}>
@@ -1222,7 +1226,7 @@ function ProfilePage({
       <PageHero
         eyebrow="Профиль"
         title="Личный кабинет без лишнего шума"
-        text="В профиле остаются данные ученика, активная покупка, промокод, заметки и история. Уроки вынесены в программу и в “Мои курсы”."
+        visual={heroProfile}
       />
       <section className="profile-pro refined-profile">
         <aside className="student-card">
@@ -1369,7 +1373,7 @@ function FaqPage() {
       <PageHero
         eyebrow="Поддержка"
         title="Вопросы перед стартом"
-        text="Поиск работает по вопросам и ответам. Можно быстро понять, какой формат подойдет именно тебе."
+        visual={heroFaq}
       >
         <label className="search-box">
           <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Найти вопрос" />
