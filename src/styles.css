@@ -4457,6 +4457,11 @@ footer {
   line-height: 0.92;
 }
 
+.auth-section,
+.profile-pro.refined-profile {
+  padding-top: clamp(110px, 12vw, 150px);
+}
+
 .nav-mobile-auth {
   display: none;
 }
