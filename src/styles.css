@@ -2046,14 +2046,14 @@ h3 {
 
 .support-form input,
 .support-form textarea {
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
+  border-color: rgba(255, 255, 255, 0.72);
+  background: #fffaf1;
+  color: #111315;
 }
 
 .support-form input::placeholder,
 .support-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.46);
+  color: rgba(17, 19, 21, 0.56);
 }
 
 .support-form textarea {
@@ -2075,6 +2075,11 @@ h3 {
 
 .support-form .support-error {
   color: #ffd7d7;
+}
+
+.app-section .kicker,
+.app-section .hero-text {
+  color: #111315;
 }
 
 .auth-section {

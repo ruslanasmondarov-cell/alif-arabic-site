@@ -502,7 +502,7 @@ function PageHero({ eyebrow, title, visual = heroProgram, children }) {
         {children && <div className="page-hero-inline">{children}</div>}
       </div>
       <figure className="page-hero-art" aria-hidden="true">
-        <img src={visual} alt="" />
+        <img src={visual} alt="" loading="eager" decoding="async" fetchPriority="high" />
       </figure>
     </section>
   );
@@ -564,7 +564,7 @@ function HomePage({ progress, selectedPlan, onSelectPlan }) {
           </div>
         </div>
         <div className="hero-visual">
-          <img src={heroCity} alt="Город и архитектура арабского мира" />
+          <img src={heroCity} alt="Город и архитектура арабского мира" loading="eager" decoding="async" fetchPriority="high" />
           <div className="arabic-layer">العربية</div>
         </div>
       </section>
@@ -607,7 +607,7 @@ function HomePage({ progress, selectedPlan, onSelectPlan }) {
           </div>
         </div>
         <figure className="spotlight-photo">
-          <img src={heroCity} alt="" />
+          <img src={heroCity} alt="" loading="lazy" decoding="async" />
         </figure>
         <aside className="mini-plans">
           {plans.map((plan) => (
@@ -661,7 +661,7 @@ function HomePage({ progress, selectedPlan, onSelectPlan }) {
         </div>
         <LinkButton to="pricing" variant="dark" icon={ArrowRight}>Выбрать тариф</LinkButton>
         <div className="cta-slice" aria-hidden="true">
-          <img src={studyCity} alt="" />
+          <img src={studyCity} alt="" loading="lazy" decoding="async" />
         </div>
       </section>
     </>
