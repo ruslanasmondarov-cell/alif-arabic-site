@@ -358,6 +358,45 @@ async function sendAuthCode(email, code, mode) {
   return { message: `Код отправлен на ${email}.` };
 }
 
+async function sendFeedbackMessage({ name, email, phone, message }) {
+  const emailJsConfig = {
+    serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    templateId: import.meta.env.VITE_EMAILJS_FEEDBACK_TEMPLATE_ID,
+    publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+    toEmail: import.meta.env.VITE_CONTACT_TO_EMAIL,
+  };
+
+  if (!emailJsConfig.serviceId || !emailJsConfig.templateId || !emailJsConfig.publicKey || !emailJsConfig.toEmail) {
+    throw new Error('Форма обратной связи не подключена к почте.');
+  }
+
+  const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      service_id: emailJsConfig.serviceId,
+      template_id: emailJsConfig.templateId,
+      user_id: emailJsConfig.publicKey,
+      template_params: {
+        to_email: emailJsConfig.toEmail,
+        reply_to: email,
+        from_name: name,
+        from_email: email,
+        phone,
+        message,
+        app_name: 'ALIF Arabic',
+      },
+    }),
+  });
+
+  if (!response.ok) {
+    const details = await response.text();
+    throw new Error(details || `EmailJS вернул ошибку ${response.status}.`);
+  }
+
+  return { message: 'Сообщение отправлено. Проверь почту.' };
+}
+
 function IconButton({ children, className = '', ...props }) {
   return (
     <button className={`icon-button ${className}`} type="button" {...props}>
@@ -1351,11 +1390,47 @@ function ProfilePage({
   );
 }
 
-function FaqPage() {
+function FaqPage({ profile }) {
   const [query, setQuery] = useState('');
   const [openIndex, setOpenIndex] = useState(0);
-  const [sent, setSent] = useState(false);
+  const [feedback, setFeedback] = useState({
+    name: profile.name || '',
+    email: profile.email || '',
+    phone: profile.phone || '',
+    message: '',
+  });
+  const [feedbackStatus, setFeedbackStatus] = useState('');
+  const [feedbackError, setFeedbackError] = useState('');
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false);
   const visibleItems = faqItems.filter(([question, answer]) => `${question} ${answer}`.toLowerCase().includes(query.toLowerCase()));
+  const canSendFeedback = feedback.name.trim().length > 1
+    && feedback.email.includes('@')
+    && feedback.message.trim().length > 8;
+
+  function updateFeedback(field, value) {
+    setFeedback((current) => ({ ...current, [field]: value }));
+    setFeedbackStatus('');
+    setFeedbackError('');
+  }
+
+  async function submitFeedback(event) {
+    event.preventDefault();
+    if (!canSendFeedback || isSendingFeedback) return;
+
+    setIsSendingFeedback(true);
+    setFeedbackStatus('');
+    setFeedbackError('');
+
+    try {
+      const result = await sendFeedbackMessage(feedback);
+      setFeedbackStatus(result.message);
+      setFeedback((current) => ({ ...current, message: '' }));
+    } catch (error) {
+      setFeedbackError(`Сообщение не отправилось: ${error.message}`);
+    } finally {
+      setIsSendingFeedback(false);
+    }
+  }
 
   return (
     <div className="page">
@@ -1385,10 +1460,29 @@ function FaqPage() {
           <p className="eyebrow">Связь</p>
           <h2>Нужна помощь?</h2>
           <p>Оставь заявку, и менеджер подскажет тариф, график и формат обучения.</p>
-          <div className="support-actions">
-            <ActionButton onClick={() => setSent(true)}>Отправить заявку</ActionButton>
-            {sent && <strong>Заявка подготовлена. Мы свяжемся с тобой.</strong>}
-          </div>
+          <form className="support-form" onSubmit={submitFeedback}>
+            <label className="field">
+              Имя
+              <input value={feedback.name} onChange={(event) => updateFeedback('name', event.target.value)} />
+            </label>
+            <label className="field">
+              Email
+              <input value={feedback.email} type="email" onChange={(event) => updateFeedback('email', event.target.value)} placeholder="you@mail.ru" />
+            </label>
+            <label className="field">
+              Телефон
+              <input value={feedback.phone} onChange={(event) => updateFeedback('phone', event.target.value)} placeholder="+7" />
+            </label>
+            <label className="field">
+              Сообщение
+              <textarea value={feedback.message} onChange={(event) => updateFeedback('message', event.target.value)} placeholder="Напиши вопрос или удобное время для связи" />
+            </label>
+            <ActionButton type="submit" disabled={!canSendFeedback || isSendingFeedback}>
+              {isSendingFeedback ? 'Отправляем...' : 'Отправить заявку'}
+            </ActionButton>
+            {feedbackStatus && <strong>{feedbackStatus}</strong>}
+            {feedbackError && <strong className="support-error">{feedbackError}</strong>}
+          </form>
         </aside>
       </section>
     </div>
@@ -1622,7 +1716,7 @@ function App() {
       ) : (
         <AuthPage mode={authMode} onLogin={login} onRegister={register} />
       ))}
-      {page === 'faq' && <FaqPage />}
+      {page === 'faq' && <FaqPage profile={profile} />}
       <Footer />
       <Toast message={toast} />
     </main>

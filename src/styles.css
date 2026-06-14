@@ -1465,6 +1465,8 @@ h3 {
 
 .form-grid input,
 .form-grid select,
+.support-form input,
+.support-form textarea,
 .search-box input,
 .note-box textarea,
 .promo-row input {
@@ -1484,6 +1486,8 @@ h3 {
 
 .form-grid input:focus,
 .form-grid select:focus,
+.support-form input:focus,
+.support-form textarea:focus,
 .search-box input:focus,
 .note-box textarea:focus,
 .promo-row input:focus {
@@ -2027,6 +2031,50 @@ h3 {
 
 .support-actions strong {
   color: #fff;
+}
+
+.support-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.support-form .field {
+  display: grid;
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.support-form input,
+.support-form textarea {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.support-form input::placeholder,
+.support-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.46);
+}
+
+.support-form textarea {
+  min-height: 118px;
+  padding-top: 16px;
+  resize: vertical;
+}
+
+.support-form .button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+  transform: none;
+}
+
+.support-form strong {
+  color: #fff;
+  line-height: 1.35;
+}
+
+.support-form .support-error {
+  color: #ffd7d7;
 }
 
 .auth-section {
