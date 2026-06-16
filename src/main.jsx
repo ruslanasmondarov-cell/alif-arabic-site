@@ -386,6 +386,15 @@ function getCurrentLesson(course) {
   return lessons[Math.min(done, lessons.length - 1)]?.title || 'Урок 1';
 }
 
+function getLessonState(planId, completedLessonIds = []) {
+  const lessons = courseLessonsByPlan[planId] || courseLessonsByPlan.base;
+  const completed = completedLessonIds.filter((lessonId) => lessons.some((lesson) => lesson.id === lessonId));
+  const progress = lessons.length ? Math.round((completed.length / lessons.length) * 100) : 0;
+  const currentLesson = lessons[Math.min(completed.length, Math.max(lessons.length - 1, 0))]?.title || 'Урок 1';
+
+  return { lessons, completedLessonIds: completed, progress, currentLesson };
+}
+
 function buildAdminData({ profile, isLoggedIn, registrations, courses, adminStudents }) {
   const profileRegistration = isLoggedIn && profile?.email ? [makeRegistration(profile, 'Активен')] : [];
   const users = uniqueByEmail([...registrations, ...profileRegistration]);
@@ -398,21 +407,30 @@ function buildAdminData({ profile, isLoggedIn, registrations, courses, adminStud
     const base = {
       id: `course-${course.id}`,
       courseId: course.id,
+      planId: course.planId || 'base',
       name: course.userName || profile?.name || 'Ученик',
       email: (course.email || profile?.email || '').trim().toLowerCase(),
       tariff: normalizeTariffName(course.planName || course.planId),
       currentLesson: getCurrentLesson(course),
       progress: getCourseProgress(course),
       learningStatus: course.status === 'completed' ? 'Завершил' : 'Обучается',
+      lessons: courseLessonsByPlan[course.planId] || courseLessonsByPlan.base,
+      completedLessonIds: course.completedLessonIds || [],
       updatedAt: course.paidAt || new Date().toISOString(),
     };
     const stored = progressById.get(base.id) || progressByEmail.get(base.email);
+    const lessonState = getLessonState(base.planId, stored?.completedLessonIds || base.completedLessonIds);
     return {
       ...base,
       ...stored,
+      lessons: lessonState.lessons,
+      completedLessonIds: lessonState.completedLessonIds,
       tariff: normalizeTariffName(stored?.tariff || base.tariff),
       learningStatus: normalizeLearningStatus(stored?.learningStatus, base.learningStatus),
-      progress: Math.min(100, Math.max(0, Number(stored?.progress ?? base.progress))),
+      currentLesson: stored?.currentLesson || lessonState.currentLesson,
+      progress: stored?.completedLessonIds
+        ? lessonState.progress
+        : Math.min(100, Math.max(0, Number(stored?.progress ?? base.progress))),
     };
   });
 
@@ -1674,10 +1692,10 @@ function AdminLogin({ onLogin }) {
   }
 
   return (
-    <main className="admin-page admin-login-page">
+    <section className="admin-page admin-login-page">
       <form className="admin-login-card" onSubmit={submit}>
         <p className="eyebrow">ALIF Arabic</p>
-        <h1>Вход администратора</h1>
+        <h1>Вход админа</h1>
         <p>Отдельная панель управления сайтом без подтверждения кода на почту.</p>
         <label className="field">
           Логин
@@ -1690,7 +1708,7 @@ function AdminLogin({ onLogin }) {
         {error && <div className="auth-error">{error}</div>}
         <button className="button primary" type="submit">Войти</button>
       </form>
-    </main>
+    </section>
   );
 }
 
@@ -1701,6 +1719,7 @@ function AdminPage({
   courses,
   adminStudents,
   onStudentUpdate,
+  onCourseLessonUpdate,
   onLogout,
 }) {
   const [search, setSearch] = useState('');
@@ -1728,8 +1747,27 @@ function AdminPage({
     });
   }
 
+  function toggleLesson(student, lessonId) {
+    const currentCompleted = student.completedLessonIds || [];
+    const nextCompleted = currentCompleted.includes(lessonId)
+      ? currentCompleted.filter((id) => id !== lessonId)
+      : [...currentCompleted, lessonId];
+    const lessonState = getLessonState(student.planId, nextCompleted);
+    const nextStudent = {
+      ...student,
+      completedLessonIds: lessonState.completedLessonIds,
+      currentLesson: lessonState.currentLesson,
+      progress: lessonState.progress,
+      learningStatus: lessonState.progress === 100 ? 'Завершил' : 'Обучается',
+      updatedAt: new Date().toISOString(),
+    };
+
+    onStudentUpdate(student.id, nextStudent);
+    onCourseLessonUpdate(student.courseId, lessonState.completedLessonIds);
+  }
+
   return (
-    <main className="admin-page">
+    <section className="admin-page">
       <header className="admin-topbar">
         <div>
           <p className="eyebrow">ALIF Arabic</p>
@@ -1850,6 +1888,7 @@ function AdminPage({
                 <th>Тариф</th>
                 <th>Текущий урок</th>
                 <th>Процент</th>
+                <th>Уроки</th>
                 <th>Статус обучения</th>
               </tr>
             </thead>
@@ -1871,6 +1910,21 @@ function AdminPage({
                     />
                   </td>
                   <td>
+                    <div className="admin-lessons">
+                      {(student.lessons || []).map((lesson, index) => (
+                        <button
+                          className={(student.completedLessonIds || []).includes(lesson.id) ? 'done' : ''}
+                          type="button"
+                          key={lesson.id}
+                          onClick={() => toggleLesson(student, lesson.id)}
+                        >
+                          <span>{index + 1}</span>
+                          <strong>{lesson.title}</strong>
+                        </button>
+                      ))}
+                    </div>
+                  </td>
+                  <td>
                     <select value={student.learningStatus} onChange={(event) => updateStudent(student, { learningStatus: event.target.value })}>
                       {learningStatuses.map((status) => <option key={status}>{status}</option>)}
                     </select>
@@ -1879,14 +1933,14 @@ function AdminPage({
               ))}
               {filteredStudents.length === 0 && (
                 <tr>
-                  <td colSpan="6" className="admin-empty">По этим фильтрам учеников нет</td>
+                  <td colSpan="7" className="admin-empty">По этим фильтрам учеников нет</td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
       </section>
-    </main>
+    </section>
   );
 }
 
@@ -2093,6 +2147,24 @@ function App() {
     }));
   }
 
+  function updateCourseLessonsFromAdmin(courseId, completedLessonIds) {
+    if (!courseId) return;
+
+    setCourses((current) => current.map((course) => {
+      if (course.id !== courseId) return course;
+      const lessonState = getLessonState(course.planId, completedLessonIds);
+
+      return {
+        ...course,
+        completedLessonIds: lessonState.completedLessonIds,
+        lessonsDone: lessonState.completedLessonIds.length,
+        adminProgress: lessonState.progress,
+        status: lessonState.progress === 100 ? 'completed' : 'active',
+        completedAt: lessonState.progress === 100 ? new Date().toISOString() : undefined,
+      };
+    }));
+  }
+
   function logout() {
     setIsLoggedIn(false);
     setToast('Вы вышли из аккаунта');
@@ -2122,6 +2194,7 @@ function App() {
           courses={courses}
           adminStudents={adminStudents}
           onStudentUpdate={updateAdminStudent}
+          onCourseLessonUpdate={updateCourseLessonsFromAdmin}
           onLogout={() => setIsAdminLoggedIn(false)}
         />
       ) : (

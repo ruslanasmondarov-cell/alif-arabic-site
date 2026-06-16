@@ -37,9 +37,16 @@
 }
 
 .admin-login-page {
+  width: 100%;
+  margin: 0;
+  padding: 24px;
   min-height: 100vh;
   display: grid;
   place-items: center;
+  background:
+    radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--accent-2) 14%, transparent), transparent 28%),
+    radial-gradient(circle at 88% 82%, color-mix(in srgb, var(--gold) 16%, transparent), transparent 30%),
+    var(--bg);
 }
 
 .admin-login-card,
@@ -53,18 +60,48 @@
 }
 
 .admin-login-card {
-  width: min(460px, 100%);
+  width: min(540px, 100%);
   display: grid;
   gap: 16px;
   padding: clamp(24px, 4vw, 36px);
+  justify-self: center;
+  align-self: center;
 }
 
-.admin-login-card h1,
+.admin-login-card .field {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-login-card input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-solid);
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.admin-login-card .button {
+  width: 100%;
+}
+
 .admin-topbar h1 {
   margin: 0;
   font-size: clamp(36px, 5vw, 68px);
   line-height: 0.95;
   letter-spacing: 0;
+}
+
+.admin-login-card h1 {
+  margin: 0;
+  max-width: 100%;
+  font-size: clamp(34px, 4vw, 46px);
+  line-height: 0.98;
+  letter-spacing: 0;
+  overflow-wrap: normal;
 }
 
 .admin-login-card p,
@@ -143,7 +180,7 @@
 }
 
 .admin-table.wide {
-  min-width: 980px;
+  min-width: 1180px;
 }
 
 .admin-table th,
@@ -202,6 +239,56 @@
   min-width: 160px;
 }
 
+.admin-lessons {
+  width: min(360px, 42vw);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  white-space: normal;
+}
+
+.admin-lessons button {
+  min-height: 48px;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-solid);
+  color: var(--ink);
+  text-align: left;
+}
+
+.admin-lessons button span {
+  width: 26px;
+  height: 26px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--line) 75%, transparent);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.admin-lessons button strong {
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+}
+
+.admin-lessons button.done {
+  border-color: color-mix(in srgb, var(--accent-2) 48%, transparent);
+  background: color-mix(in srgb, var(--accent-2) 12%, var(--surface-solid));
+}
+
+.admin-lessons button.done span {
+  color: #fff;
+  background: var(--accent-2);
+}
+
 .admin-empty {
   color: var(--muted);
   text-align: center;
@@ -218,6 +305,10 @@
   .admin-stats,
   .admin-filters {
     grid-template-columns: 1fr;
+  }
+
+  .admin-lessons {
+    width: 520px;
   }
 }
 
