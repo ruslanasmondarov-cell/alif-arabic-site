@@ -24,7 +24,7 @@ import heroProfile from './assets/hero-profile.png';
 import heroProgram from './assets/hero-program.png';
 import studyCity from './assets/study-city.png';
 
-const pages = ['home', 'program', 'pricing', 'payment', 'courses', 'profile', 'faq'];
+const pages = ['home', 'program', 'pricing', 'payment', 'courses', 'profile', 'faq', 'admin'];
 
 const navItems = [
   ['home', 'Главная'],
@@ -212,6 +212,71 @@ const paymentMethods = [
   ['invoice', 'Счет на оплату', 'для компании или оплаты частями'],
 ];
 
+const adminLogin = 'admin';
+const adminPassword = 'admin123';
+const learningStatuses = ['Новый', 'Обучается', 'Завершил', 'Пауза'];
+const adminTariffs = ['Base', 'Pro', 'VIP'];
+
+const demoRegistrations = [
+  { id: 'demo-user-1', name: 'Амина Садыкова', email: 'amina@example.com', phone: '+7 900 111-22-33', registeredAt: '2026-06-05T10:00:00.000Z', status: 'Новый' },
+  { id: 'demo-user-2', name: 'Мурад Алиев', email: 'murad@example.com', phone: '+7 900 222-33-44', registeredAt: '2026-06-09T12:00:00.000Z', status: 'Активен' },
+  { id: 'demo-user-3', name: 'Лейла Каримова', email: 'leyla@example.com', phone: '+7 900 333-44-55', registeredAt: '2026-06-12T09:00:00.000Z', status: 'Новый' },
+];
+
+const demoCourses = [
+  {
+    id: 'demo-course-1',
+    userName: 'Амина Садыкова',
+    email: 'amina@example.com',
+    phone: '+7 900 111-22-33',
+    planId: 'base',
+    planName: 'Base',
+    total: 7900,
+    promoCode: 'ALIFSTART',
+    paidAt: '2026-06-05T10:20:00.000Z',
+    paymentStatus: 'Оплачено / демо',
+    status: 'active',
+    lessonsTotal: 5,
+    lessonsDone: 1,
+    completedLessonIds: ['base-01'],
+    start: { day: 'Понедельник', date: '20 июня', time: '19:00' },
+  },
+  {
+    id: 'demo-course-2',
+    userName: 'Мурад Алиев',
+    email: 'murad@example.com',
+    phone: '+7 900 222-33-44',
+    planId: 'pro',
+    planName: 'Pro',
+    total: 17010,
+    promoCode: 'SPEAK10',
+    paidAt: '2026-06-09T13:30:00.000Z',
+    paymentStatus: 'Оплачено / демо',
+    status: 'active',
+    lessonsTotal: 7,
+    lessonsDone: 3,
+    completedLessonIds: ['pro-01', 'pro-02', 'pro-03'],
+    start: { day: 'Среда', date: '18 июня', time: '18:00' },
+  },
+  {
+    id: 'demo-course-3',
+    userName: 'Лейла Каримова',
+    email: 'leyla@example.com',
+    phone: '+7 900 333-44-55',
+    planId: 'vip',
+    planName: 'VIP',
+    total: 39900,
+    promoCode: '',
+    paidAt: '2026-06-12T15:10:00.000Z',
+    paymentStatus: 'Оплачено / демо',
+    status: 'active',
+    lessonsTotal: 8,
+    lessonsDone: 0,
+    completedLessonIds: [],
+    start: { day: 'Суббота', date: '25 июня', time: '12:00' },
+  },
+];
+
 const faqItems = [
   ['Можно ли с нуля?', 'Да. Курс начинается с алфавита, чтения и базовых фраз. Первый результат виден уже после стартового блока.'],
   ['Сколько времени нужно?', 'В среднем достаточно 20 минут в день и одного практического блока в неделю.'],
@@ -262,6 +327,104 @@ function getStored(key, fallback) {
 function getPageFromHash() {
   const page = window.location.hash.replace('#/', '') || 'home';
   return pages.includes(page) ? page : 'home';
+}
+
+function formatAdminDate(value) {
+  if (!value) return '—';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+
+  return new Intl.DateTimeFormat('ru-RU', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  }).format(date);
+}
+
+function normalizeTariffName(value) {
+  const plan = String(value || '').toLowerCase();
+  if (plan.includes('vip')) return 'VIP';
+  if (plan.includes('pro')) return 'Pro';
+  return 'Base';
+}
+
+function normalizeLearningStatus(value, fallback = 'Новый') {
+  return learningStatuses.includes(value) ? value : fallback;
+}
+
+function uniqueByEmail(items) {
+  const seen = new Set();
+  return items.filter((item) => {
+    const key = (item.email || item.id || '').toLowerCase();
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function makeRegistration(profile, status = 'Новый') {
+  return {
+    id: profile.id || `user-${Date.now()}`,
+    name: profile.name || 'Ученик',
+    email: (profile.email || '').trim().toLowerCase(),
+    phone: profile.phone || '',
+    registeredAt: profile.registeredAt || new Date().toISOString(),
+    status,
+  };
+}
+
+function getCourseProgress(course) {
+  if (Number.isFinite(course.adminProgress)) return course.adminProgress;
+  const total = course.lessonsTotal || (courseLessonsByPlan[course.planId] || []).length || 1;
+  const done = course.lessonsDone || (course.completedLessonIds || []).length || 0;
+  return Math.min(100, Math.max(0, Math.round((done / total) * 100)));
+}
+
+function getCurrentLesson(course) {
+  const lessons = courseLessonsByPlan[course.planId] || courseLessonsByPlan.base;
+  const done = course.lessonsDone || (course.completedLessonIds || []).length || 0;
+  return lessons[Math.min(done, lessons.length - 1)]?.title || 'Урок 1';
+}
+
+function buildAdminData({ profile, isLoggedIn, registrations, courses, adminStudents }) {
+  const profileRegistration = isLoggedIn && profile?.email ? [makeRegistration(profile, 'Активен')] : [];
+  const users = uniqueByEmail([...registrations, ...profileRegistration]);
+  const visibleUsers = users.length ? users : demoRegistrations;
+  const visibleCourses = courses.length ? courses : demoCourses;
+  const progressById = new Map(adminStudents.map((student) => [student.id, student]));
+  const progressByEmail = new Map(adminStudents.map((student) => [student.email, student]));
+
+  const studentsFromCourses = visibleCourses.map((course) => {
+    const base = {
+      id: `course-${course.id}`,
+      courseId: course.id,
+      name: course.userName || profile?.name || 'Ученик',
+      email: (course.email || profile?.email || '').trim().toLowerCase(),
+      tariff: normalizeTariffName(course.planName || course.planId),
+      currentLesson: getCurrentLesson(course),
+      progress: getCourseProgress(course),
+      learningStatus: course.status === 'completed' ? 'Завершил' : 'Обучается',
+      updatedAt: course.paidAt || new Date().toISOString(),
+    };
+    const stored = progressById.get(base.id) || progressByEmail.get(base.email);
+    return {
+      ...base,
+      ...stored,
+      tariff: normalizeTariffName(stored?.tariff || base.tariff),
+      learningStatus: normalizeLearningStatus(stored?.learningStatus, base.learningStatus),
+      progress: Math.min(100, Math.max(0, Number(stored?.progress ?? base.progress))),
+    };
+  });
+
+  const extraStudents = adminStudents.filter((student) => (
+    !studentsFromCourses.some((courseStudent) => courseStudent.id === student.id || courseStudent.email === student.email)
+  ));
+
+  return {
+    users: visibleUsers,
+    courses: visibleCourses,
+    students: [...studentsFromCourses, ...extraStudents],
+  };
 }
 
 function formatPrice(value) {
@@ -829,14 +992,20 @@ function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onP
       return;
     }
 
-    const nextCourse = createCourseRecord({
-      plan: selectedPlan,
-      slot: selectedSlot,
-      promoCode: cleanPromo,
-      discount,
-      total,
-      method,
-    });
+    const nextCourse = {
+      ...createCourseRecord({
+        plan: selectedPlan,
+        slot: selectedSlot,
+        promoCode: cleanPromo,
+        discount,
+        total,
+        method,
+      }),
+      userName: contact.name.trim(),
+      email: contact.email.trim().toLowerCase(),
+      phone: contact.phone,
+      paymentStatus: 'Оплачено / демо',
+    };
     onProfileChange({ ...contact, promoCode: cleanPromo, planId: selectedPlan.id });
     onCompletePayment(nextCourse);
   }
@@ -1489,6 +1658,238 @@ function FaqPage({ profile }) {
   );
 }
 
+function AdminLogin({ onLogin }) {
+  const [credentials, setCredentials] = useState({ login: '', password: '' });
+  const [error, setError] = useState('');
+
+  function submit(event) {
+    event.preventDefault();
+    if (credentials.login.trim() === adminLogin && credentials.password === adminPassword) {
+      setError('');
+      onLogin();
+      return;
+    }
+
+    setError('Неверный логин или пароль');
+  }
+
+  return (
+    <main className="admin-page admin-login-page">
+      <form className="admin-login-card" onSubmit={submit}>
+        <p className="eyebrow">ALIF Arabic</p>
+        <h1>Вход администратора</h1>
+        <p>Отдельная панель управления сайтом без подтверждения кода на почту.</p>
+        <label className="field">
+          Логин
+          <input value={credentials.login} onChange={(event) => setCredentials((current) => ({ ...current, login: event.target.value }))} placeholder="admin" />
+        </label>
+        <label className="field">
+          Пароль
+          <input value={credentials.password} type="password" onChange={(event) => setCredentials((current) => ({ ...current, password: event.target.value }))} placeholder="admin123" />
+        </label>
+        {error && <div className="auth-error">{error}</div>}
+        <button className="button primary" type="submit">Войти</button>
+      </form>
+    </main>
+  );
+}
+
+function AdminPage({
+  profile,
+  isLoggedIn,
+  registrations,
+  courses,
+  adminStudents,
+  onStudentUpdate,
+  onLogout,
+}) {
+  const [search, setSearch] = useState('');
+  const [tariffFilter, setTariffFilter] = useState('Все');
+  const [statusFilter, setStatusFilter] = useState('Все');
+  const adminData = buildAdminData({ profile, isLoggedIn, registrations, courses, adminStudents });
+
+  const filteredStudents = adminData.students.filter((student) => {
+    const query = search.trim().toLowerCase();
+    const matchesSearch = !query || student.name.toLowerCase().includes(query) || student.email.toLowerCase().includes(query);
+    const matchesTariff = tariffFilter === 'Все' || student.tariff === tariffFilter;
+    const matchesStatus = statusFilter === 'Все' || student.learningStatus === statusFilter;
+    return matchesSearch && matchesTariff && matchesStatus;
+  });
+
+  const activeStudents = adminData.students.filter((student) => ['Новый', 'Обучается'].includes(student.learningStatus)).length;
+
+  function updateStudent(student, patch) {
+    onStudentUpdate(student.id, {
+      ...student,
+      ...patch,
+      progress: Math.min(100, Math.max(0, Number(patch.progress ?? student.progress))),
+      learningStatus: normalizeLearningStatus(patch.learningStatus, student.learningStatus),
+      updatedAt: new Date().toISOString(),
+    });
+  }
+
+  return (
+    <main className="admin-page">
+      <header className="admin-topbar">
+        <div>
+          <p className="eyebrow">ALIF Arabic</p>
+          <h1>Панель администратора</h1>
+          <p>Регистрации, купленные курсы и прохождение учеников сохраняются в localStorage.</p>
+        </div>
+        <button className="button outline" type="button" onClick={onLogout}>Выйти</button>
+      </header>
+
+      <section className="admin-stats">
+        <article><span>Пользователи</span><strong>{adminData.users.length}</strong></article>
+        <article><span>Записи на курс</span><strong>{adminData.courses.length}</strong></article>
+        <article><span>Купленные тарифы</span><strong>{adminData.courses.length}</strong></article>
+        <article><span>Активные ученики</span><strong>{activeStudents}</strong></article>
+      </section>
+
+      <section className="admin-card">
+        <div className="admin-section-head">
+          <div>
+            <p className="eyebrow">Новые регистрации</p>
+            <h2>Пользователи сайта</h2>
+          </div>
+        </div>
+        <div className="admin-table-wrap">
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Дата регистрации</th>
+                <th>Статус</th>
+              </tr>
+            </thead>
+            <tbody>
+              {adminData.users.map((user) => (
+                <tr key={user.id || user.email}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>{formatAdminDate(user.registeredAt)}</td>
+                  <td><span className="admin-pill">{user.status || 'Новый'}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section className="admin-card">
+        <div className="admin-section-head">
+          <div>
+            <p className="eyebrow">Приобретенные курсы</p>
+            <h2>Оплаты и записи</h2>
+          </div>
+        </div>
+        <div className="admin-table-wrap">
+          <table className="admin-table wide">
+            <thead>
+              <tr>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Тариф</th>
+                <th>Дата старта</th>
+                <th>Промокод</th>
+                <th>Итог</th>
+                <th>Оплата</th>
+              </tr>
+            </thead>
+            <tbody>
+              {adminData.courses.map((course) => (
+                <tr key={course.id}>
+                  <td>{course.userName || profile.name}</td>
+                  <td>{course.email || profile.email}</td>
+                  <td><span className="admin-tariff">{normalizeTariffName(course.planName || course.planId)}</span></td>
+                  <td>{course.start?.date || 'Дата не выбрана'}</td>
+                  <td>{course.promoCode || 'Нет'}</td>
+                  <td>{formatPrice(course.total || 0)}</td>
+                  <td><span className="admin-paid">{course.paymentStatus || 'Оплачено / демо'}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section className="admin-card">
+        <div className="admin-section-head">
+          <div>
+            <p className="eyebrow">Прохождение курса</p>
+            <h2>Управление учениками</h2>
+          </div>
+        </div>
+        <div className="admin-filters">
+          <label className="field">
+            Поиск
+            <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Имя или email" />
+          </label>
+          <label className="field">
+            Тариф
+            <select value={tariffFilter} onChange={(event) => setTariffFilter(event.target.value)}>
+              <option>Все</option>
+              {adminTariffs.map((tariff) => <option key={tariff}>{tariff}</option>)}
+            </select>
+          </label>
+          <label className="field">
+            Статус
+            <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value)}>
+              <option>Все</option>
+              {learningStatuses.map((status) => <option key={status}>{status}</option>)}
+            </select>
+          </label>
+        </div>
+        <div className="admin-table-wrap">
+          <table className="admin-table wide">
+            <thead>
+              <tr>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Тариф</th>
+                <th>Текущий урок</th>
+                <th>Процент</th>
+                <th>Статус обучения</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredStudents.map((student) => (
+                <tr key={student.id}>
+                  <td>{student.name}</td>
+                  <td>{student.email}</td>
+                  <td><span className="admin-tariff">{student.tariff}</span></td>
+                  <td>{student.currentLesson}</td>
+                  <td>
+                    <input
+                      className="admin-progress-input"
+                      type="number"
+                      min="0"
+                      max="100"
+                      value={student.progress}
+                      onChange={(event) => updateStudent(student, { progress: event.target.value })}
+                    />
+                  </td>
+                  <td>
+                    <select value={student.learningStatus} onChange={(event) => updateStudent(student, { learningStatus: event.target.value })}>
+                      {learningStatuses.map((status) => <option key={status}>{status}</option>)}
+                    </select>
+                  </td>
+                </tr>
+              ))}
+              {filteredStudents.length === 0 && (
+                <tr>
+                  <td colSpan="6" className="admin-empty">По этим фильтрам учеников нет</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function Footer() {
   return (
     <footer>
@@ -1511,6 +1912,9 @@ function App() {
   const [note, setNote] = useState(() => getStored('alif-note', ''));
   const [booking, setBooking] = useState(() => getStored('alif-booking', null));
   const [courses, setCourses] = useState(() => getStored('alif-courses', []));
+  const [registrations, setRegistrations] = useState(() => getStored('alif-registrations', []));
+  const [adminStudents, setAdminStudents] = useState(() => getStored('alif-admin-students', []));
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => getStored('alif-admin-auth', false));
   const [toast, setToast] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(() => getStored('alif-auth', false));
   const [authMode, setAuthMode] = useState('login');
@@ -1537,7 +1941,13 @@ function App() {
   useEffect(() => localStorage.setItem('alif-note', JSON.stringify(note)), [note]);
   useEffect(() => localStorage.setItem('alif-booking', JSON.stringify(booking)), [booking]);
   useEffect(() => localStorage.setItem('alif-courses', JSON.stringify(courses)), [courses]);
+  useEffect(() => localStorage.setItem('alif-registrations', JSON.stringify(registrations)), [registrations]);
+  useEffect(() => localStorage.setItem('alif-admin-students', JSON.stringify(adminStudents)), [adminStudents]);
   useEffect(() => localStorage.setItem('alif-auth', JSON.stringify(isLoggedIn)), [isLoggedIn]);
+  useEffect(() => {
+    if (isAdminLoggedIn) localStorage.setItem('alif-admin-auth', JSON.stringify(true));
+    else localStorage.removeItem('alif-admin-auth');
+  }, [isAdminLoggedIn]);
 
   useEffect(() => {
     if (!toast) return undefined;
@@ -1584,6 +1994,34 @@ function App() {
     setProfile((current) => ({ ...current, ...patch }));
   }
 
+  function syncRegistration(nextProfile, previousEmail = nextProfile.email, status = 'Активен') {
+    const registration = makeRegistration(
+      { ...nextProfile, registeredAt: nextProfile.registeredAt || new Date().toISOString() },
+      status,
+    );
+    setRegistrations((current) => {
+      const existing = current.find((user) => (
+        user.email === registration.email || (previousEmail && user.email === previousEmail)
+      ));
+      if (!existing) return [registration, ...current];
+
+      return current.map((user) => (
+        user.email === existing.email ? { ...user, ...registration, registeredAt: user.registeredAt || registration.registeredAt } : user
+      ));
+    });
+  }
+
+  function updateAdminStudent(studentId, nextStudent) {
+    setAdminStudents((current) => {
+      const existing = current.find((student) => student.id === studentId || student.email === nextStudent.email);
+      if (!existing) return [nextStudent, ...current];
+
+      return current.map((student) => (
+        student.id === existing.id ? { ...student, ...nextStudent, id: existing.id } : student
+      ));
+    });
+  }
+
   function login(patch = {}) {
     setProfile((current) => ({ ...current, ...patch }));
     setIsLoggedIn(true);
@@ -1597,7 +2035,14 @@ function App() {
   }
 
   function register(patch = {}) {
-    setProfile((current) => ({ ...current, ...patch }));
+    const nextProfile = {
+      ...profile,
+      ...patch,
+      email: (patch.email || profile.email || '').trim().toLowerCase(),
+      registeredAt: profile.registeredAt || new Date().toISOString(),
+    };
+    setProfile(nextProfile);
+    syncRegistration(nextProfile, profile.email, 'Новый');
     setIsLoggedIn(true);
     setToast('Аккаунт создан');
     if (pendingCheckout) {
@@ -1656,7 +2101,7 @@ function App() {
 
   return (
     <main>
-      <Header
+      {page !== 'admin' && <Header
         activePage={page}
         profile={profile}
         isLoggedIn={isLoggedIn}
@@ -1668,7 +2113,20 @@ function App() {
           setAuthMode('register');
           navigate('profile');
         }}
-      />
+      />}
+      {page === 'admin' && (isAdminLoggedIn ? (
+        <AdminPage
+          profile={profile}
+          isLoggedIn={isLoggedIn}
+          registrations={registrations}
+          courses={courses}
+          adminStudents={adminStudents}
+          onStudentUpdate={updateAdminStudent}
+          onLogout={() => setIsAdminLoggedIn(false)}
+        />
+      ) : (
+        <AdminLogin onLogin={() => setIsAdminLoggedIn(true)} />
+      ))}
       {page === 'home' && <HomePage progress={progress} selectedPlan={selectedPlan} onSelectPlan={selectPlan} />}
       {page === 'program' && <ProgramPage />}
       {page === 'pricing' && <PricingPage selectedPlanId={selectedPlanId} onSelectPlan={selectPlan} />}
@@ -1710,6 +2168,7 @@ function App() {
           onLogout={logout}
           onSave={(draft) => {
             setProfile(draft);
+            syncRegistration(draft, profile.email, 'Активен');
             setToast('Профиль сохранен');
           }}
         />
@@ -1717,7 +2176,7 @@ function App() {
         <AuthPage mode={authMode} onLogin={login} onRegister={register} />
       ))}
       {page === 'faq' && <FaqPage profile={profile} />}
-      <Footer />
+      {page !== 'admin' && <Footer />}
       <Toast message={toast} />
     </main>
   );
