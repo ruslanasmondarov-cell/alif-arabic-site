@@ -1,31 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
 
 :root {
-  color: #111315;
-  background: #f3f0ea;
+  color: #171717;
+  background: #d8d6d2;
   font-family: 'Inter', Arial, sans-serif;
   font-synthesis: none;
   text-rendering: geometricPrecision;
-  --bg: #f3f0ea;
-  --paper: #fbf8f1;
-  --ink: #111315;
-  --muted: #55514a;
-  --line: rgba(17, 19, 21, 0.11);
-  --strong-line: rgba(17, 19, 21, 0.18);
-  --grid-line: rgba(17, 19, 21, 0.075);
-  --surface: rgba(255, 252, 244, 0.76);
-  --surface-solid: #fffaf1;
-  --surface-strong: rgba(255, 252, 244, 0.92);
-  --accent: #c51f2f;
-  --accent-2: #0b8f7b;
-  --gold: #d39a2d;
-  --blue: #2057d6;
-  --dark: #161616;
+  --bg: #d8d6d2;
+  --paper: #ebe9e4;
+  --ink: #171717;
+  --muted: #5f5d5b;
+  --line: rgba(23, 23, 23, 0.1);
+  --strong-line: rgba(23, 23, 23, 0.18);
+  --grid-line: rgba(23, 23, 23, 0.045);
+  --surface: rgba(232, 230, 225, 0.7);
+  --surface-solid: #e7e5e0;
+  --surface-strong: rgba(237, 235, 230, 0.86);
+  --accent: #8f5c66;
+  --accent-2: #6f7772;
+  --gold: #9b8471;
+  --blue: #6d7280;
+  --dark: #1d1d1d;
   --radius: 8px;
   --radius-pill: 999px;
-  --shadow: 0 22px 70px rgba(17, 19, 21, 0.11);
-  --soft-shadow: 0 16px 44px rgba(17, 19, 21, 0.09);
-  --lift-shadow: 0 24px 70px rgba(17, 19, 21, 0.15);
+  --shadow: 0 22px 70px rgba(23, 23, 23, 0.1);
+  --soft-shadow: 0 16px 44px rgba(23, 23, 23, 0.08);
+  --lift-shadow: 0 24px 70px rgba(23, 23, 23, 0.14);
 }
 
 /* Admin panel */
@@ -313,21 +313,25 @@
 }
 
 :root[data-theme='dark'] {
-  color: #f7f3eb;
-  background: #111315;
-  --bg: #111315;
-  --paper: #1b1d1f;
-  --ink: #f7f3eb;
-  --muted: #c6bfb3;
-  --line: rgba(247, 243, 235, 0.12);
-  --strong-line: rgba(247, 243, 235, 0.2);
-  --grid-line: rgba(247, 243, 235, 0.06);
-  --surface: rgba(29, 31, 33, 0.76);
-  --surface-solid: #1d1f21;
-  --surface-strong: rgba(29, 31, 33, 0.92);
-  --shadow: 0 22px 70px rgba(0, 0, 0, 0.36);
-  --soft-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
-  --lift-shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
+  color: #eeeae4;
+  background: #181818;
+  --bg: #181818;
+  --paper: #242321;
+  --ink: #eeeae4;
+  --muted: #b7b1aa;
+  --line: rgba(238, 234, 228, 0.1);
+  --strong-line: rgba(238, 234, 228, 0.18);
+  --grid-line: rgba(238, 234, 228, 0.04);
+  --surface: rgba(36, 35, 33, 0.72);
+  --surface-solid: #242321;
+  --surface-strong: rgba(38, 37, 35, 0.88);
+  --accent: #b1848c;
+  --accent-2: #8b918b;
+  --gold: #a28f80;
+  --blue: #8b8f99;
+  --shadow: 0 22px 70px rgba(0, 0, 0, 0.32);
+  --soft-shadow: 0 16px 44px rgba(0, 0, 0, 0.22);
+  --lift-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
 }
 
 * {
@@ -350,6 +354,17 @@ body {
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
     var(--bg);
   background-size: 40px 40px;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(180deg, rgba(216, 214, 210, 0.72), rgba(203, 201, 198, 0.88)),
+    var(--bg);
+  pointer-events: none;
 }
 
 button,
@@ -383,8 +398,39 @@ img {
 }
 
 main {
+  position: relative;
   min-height: 100vh;
   overflow: hidden;
+}
+
+main::before {
+  content: '';
+  position: fixed;
+  inset: -36px;
+  z-index: 0;
+  width: auto;
+  height: auto;
+  background: url('./assets/sakura-blur-bg.png') center / cover no-repeat;
+  opacity: 0.58;
+  filter: blur(18px) grayscale(0.08) saturate(0.82) contrast(1.06);
+  transform: scale(1.06);
+  pointer-events: none;
+}
+
+main::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 14% 12%, rgba(255, 255, 255, 0.14), transparent 32%),
+    radial-gradient(circle at 86% 82%, rgba(143, 92, 102, 0.04), transparent 34%);
+  pointer-events: none;
+}
+
+main > * {
+  position: relative;
+  z-index: 1;
 }
 
 .nav {
@@ -413,8 +459,10 @@ main {
 .brand {
   display: inline-flex;
   align-items: center;
-  width: 76px;
-  height: 56px;
+  width: auto;
+  min-height: 56px;
+  color: var(--ink);
+  text-decoration: none;
 }
 
 .brand img {
@@ -422,6 +470,21 @@ main {
   height: 56px;
   object-fit: contain;
   border-radius: 8px;
+}
+
+.brand-name {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--strong-line);
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  font-size: 14px;
+  font-weight: 950;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: var(--soft-shadow);
 }
 
 .nav-links {
@@ -2364,6 +2427,157 @@ h3 {
 .app-section .kicker,
 .app-section .hero-text {
   color: #111315;
+}
+
+.photo-gallery-section {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.28fr) minmax(0, 0.72fr);
+  gap: clamp(18px, 4vw, 44px);
+  align-items: start;
+  border-bottom: 1px solid var(--strong-line);
+  background: color-mix(in srgb, var(--paper) 62%, transparent);
+  overflow: hidden;
+}
+
+.photo-gallery-section h2 {
+  max-width: 520px;
+}
+
+.alenka-photo-grid {
+  position: relative;
+  min-height: clamp(560px, 48vw, 760px);
+  isolation: isolate;
+}
+
+.alenka-photo-tile {
+  position: relative;
+  min-height: 0;
+  margin: 0;
+  border: 1px solid rgba(23, 23, 23, 0.42);
+  border-radius: 3px;
+  background: var(--dark);
+  overflow: hidden;
+  box-shadow:
+    0 18px 48px rgba(23, 23, 23, 0.18),
+    0 0 0 1px rgba(232, 230, 225, 0.28) inset;
+}
+
+.alenka-photo-grid .alenka-photo-tile {
+  position: absolute;
+  width: var(--piece-w);
+  height: var(--piece-h);
+  left: var(--piece-x);
+  top: var(--piece-y);
+  z-index: var(--piece-z, 1);
+  clip-path: var(--piece-clip);
+  transform: rotate(var(--piece-r));
+}
+
+.alenka-photo-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.08) saturate(0.78) grayscale(0.1);
+  transform: scale(1.04);
+}
+
+.alenka-photo-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(17, 19, 21, 0.14), transparent 54%);
+  pointer-events: none;
+}
+
+.alenka-photo-tile.tile-1,
+.alenka-photo-tile.tile-6 {
+  --piece-w: 34%;
+  --piece-h: 42%;
+  --piece-x: 1%;
+  --piece-y: 5%;
+  --piece-r: -3.5deg;
+  --piece-z: 4;
+  --piece-clip: polygon(2% 7%, 96% 0, 100% 32%, 92% 100%, 6% 95%, 0 62%);
+}
+
+.alenka-photo-tile.tile-2 {
+  --piece-w: 29%;
+  --piece-h: 24%;
+  --piece-x: 28%;
+  --piece-y: 0;
+  --piece-r: 2.2deg;
+  --piece-z: 5;
+  --piece-clip: polygon(0 8%, 93% 0, 100% 88%, 76% 100%, 5% 93%);
+}
+
+.alenka-photo-tile.tile-3 {
+  --piece-w: 30%;
+  --piece-h: 29%;
+  --piece-x: 54%;
+  --piece-y: 9%;
+  --piece-r: -2deg;
+  --piece-z: 3;
+  --piece-clip: polygon(8% 0, 100% 6%, 94% 92%, 58% 100%, 0 82%, 4% 20%);
+}
+
+.alenka-photo-tile.tile-4 {
+  --piece-w: 22%;
+  --piece-h: 29%;
+  --piece-x: 78%;
+  --piece-y: 0;
+  --piece-r: 3deg;
+  --piece-z: 6;
+  --piece-clip: polygon(0 0, 94% 7%, 100% 72%, 80% 100%, 8% 94%, 4% 34%);
+}
+
+.alenka-photo-tile.tile-5 {
+  --piece-w: 35%;
+  --piece-h: 40%;
+  --piece-x: 4%;
+  --piece-y: 42%;
+  --piece-r: 2.8deg;
+  --piece-z: 2;
+  --piece-clip: polygon(5% 0, 100% 9%, 92% 93%, 28% 100%, 0 84%, 7% 38%);
+}
+
+.alenka-photo-tile.tile-6 {
+  --piece-w: 32%;
+  --piece-h: 28%;
+  --piece-x: 34%;
+  --piece-y: 30%;
+  --piece-r: -4deg;
+  --piece-z: 7;
+  --piece-clip: polygon(2% 13%, 78% 0, 100% 20%, 91% 96%, 14% 100%, 0 74%);
+}
+
+.alenka-photo-tile.tile-7 {
+  --piece-w: 36%;
+  --piece-h: 29%;
+  --piece-x: 63%;
+  --piece-y: 45%;
+  --piece-r: 1.6deg;
+  --piece-z: 4;
+  --piece-clip: polygon(3% 4%, 100% 0, 96% 100%, 21% 92%, 0 74%);
+}
+
+.alenka-photo-tile.tile-8 {
+  --piece-w: 26%;
+  --piece-h: 33%;
+  --piece-x: 38%;
+  --piece-y: 57%;
+  --piece-r: 4deg;
+  --piece-z: 5;
+  --piece-clip: polygon(10% 0, 88% 6%, 100% 80%, 72% 100%, 2% 92%, 0 18%);
+}
+
+.alenka-photo-tile.tile-9 {
+  --piece-w: 30%;
+  --piece-h: 24%;
+  --piece-x: 4%;
+  --piece-y: 76%;
+  --piece-r: -2.2deg;
+  --piece-z: 6;
+  --piece-clip: polygon(0 12%, 86% 0, 100% 68%, 90% 96%, 10% 100%, 4% 48%);
 }
 
 .auth-section {
@@ -4475,6 +4689,7 @@ footer {
   .app-section,
   .final-cta,
   .spotlight-section,
+  .photo-gallery-section,
   .tariff-explain,
   .checkout-section,
   .dashboard-grid,
@@ -4514,6 +4729,7 @@ footer {
 
   .module-list,
   .plan-grid,
+  .alenka-photo-grid,
   .page-hero,
   .home-links,
   .pricing-strip,
@@ -4523,6 +4739,23 @@ footer {
 
   .student-card {
     position: static;
+  }
+
+  .alenka-photo-grid {
+    grid-auto-rows: 180px;
+  }
+
+  .alenka-photo-tile.tile-1,
+  .alenka-photo-tile.tile-2,
+  .alenka-photo-tile.tile-3,
+  .alenka-photo-tile.tile-4,
+  .alenka-photo-tile.tile-5,
+  .alenka-photo-tile.tile-6,
+  .alenka-photo-tile.tile-7,
+  .alenka-photo-tile.tile-8,
+  .alenka-photo-tile.tile-9 {
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .module-card,
@@ -4581,14 +4814,87 @@ footer {
     padding: 12px;
   }
 
+  .alenka-photo-grid {
+    min-height: 1080px;
+  }
+
+  .alenka-photo-tile.tile-1 {
+    --piece-w: 68%;
+    --piece-h: 180px;
+    --piece-x: 0;
+    --piece-y: 0;
+  }
+
+  .alenka-photo-tile.tile-2 {
+    --piece-w: 58%;
+    --piece-h: 150px;
+    --piece-x: 38%;
+    --piece-y: 140px;
+  }
+
+  .alenka-photo-tile.tile-3 {
+    --piece-w: 62%;
+    --piece-h: 178px;
+    --piece-x: 4%;
+    --piece-y: 284px;
+  }
+
+  .alenka-photo-tile.tile-4 {
+    --piece-w: 44%;
+    --piece-h: 168px;
+    --piece-x: 54%;
+    --piece-y: 430px;
+  }
+
+  .alenka-photo-tile.tile-5 {
+    --piece-w: 70%;
+    --piece-h: 210px;
+    --piece-x: 0;
+    --piece-y: 555px;
+  }
+
+  .alenka-photo-tile.tile-6 {
+    --piece-w: 58%;
+    --piece-h: 166px;
+    --piece-x: 36%;
+    --piece-y: 720px;
+  }
+
+  .alenka-photo-tile.tile-7 {
+    --piece-w: 62%;
+    --piece-h: 158px;
+    --piece-x: 2%;
+    --piece-y: 856px;
+  }
+
+  .alenka-photo-tile.tile-8 {
+    --piece-w: 44%;
+    --piece-h: 152px;
+    --piece-x: 53%;
+    --piece-y: 912px;
+  }
+
+  .alenka-photo-tile.tile-9 {
+    --piece-w: 62%;
+    --piece-h: 148px;
+    --piece-x: 8%;
+    --piece-y: 1010px;
+  }
+
   .brand {
-    width: 66px;
-    height: 48px;
+    width: auto;
+    min-height: 48px;
   }
 
   .brand img {
     width: 66px;
     height: 48px;
+  }
+
+  .brand-name {
+    min-height: 38px;
+    padding: 0 11px;
+    font-size: 12px;
   }
 
   .nav-links {

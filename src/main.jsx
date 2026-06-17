@@ -13,109 +13,120 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import './styles.css';
-import brandLogo from './assets/alif-brand.png';
-import heroAuth from './assets/hero-auth.png';
-import heroCourses from './assets/hero-courses.png';
-import heroCity from './assets/hero-city.png';
-import heroFaq from './assets/hero-faq.png';
-import heroPayment from './assets/hero-payment.png';
-import heroPricing from './assets/hero-pricing.png';
-import heroProfile from './assets/hero-profile.png';
-import heroProgram from './assets/hero-program.png';
-import studyCity from './assets/study-city.png';
+import alenkaMirrorClose from './assets/photo_1_2026-06-17_19-45-00.jpg';
+import alenkaMirrorSoft from './assets/photo_2_2026-06-17_19-45-00.jpg';
+import alenkaDream from './assets/photo_3_2026-06-17_19-45-00.jpg';
+import alenkaHoodie from './assets/photo_4_2026-06-17_19-45-00.jpg';
+import alenkaWarmClose from './assets/photo_5_2026-06-17_19-45-00.jpg';
+import alenkaBlue from './assets/photo_6_2026-06-17_19-45-00.jpg';
+import alenkaHalfFace from './assets/photo_7_2026-06-17_19-45-00.jpg';
+import alenkaMono from './assets/photo_8_2026-06-17_19-45-00.jpg';
+import alenkaDeskMirror from './assets/photo_9_2026-06-17_19-45-00.jpg';
+
+const alenkaGallery = [
+  alenkaMirrorClose,
+  alenkaMirrorSoft,
+  alenkaDream,
+  alenkaHoodie,
+  alenkaWarmClose,
+  alenkaBlue,
+  alenkaHalfFace,
+  alenkaMono,
+  alenkaDeskMirror,
+];
 
 const pages = ['home', 'program', 'pricing', 'payment', 'courses', 'profile', 'faq', 'admin'];
 
 const navItems = [
   ['home', 'Главная'],
-  ['program', 'Программа'],
-  ['pricing', 'Тарифы'],
-  ['courses', 'Мои курсы'],
-  ['profile', 'Профиль'],
-  ['faq', 'FAQ'],
+  ['program', 'Почему она'],
+  ['pricing', 'Сюрпризы'],
+  ['courses', 'Моменты'],
+  ['profile', 'Аленка'],
+  ['faq', 'Письма'],
 ];
 
 const seoByPage = {
   home: {
-    title: 'ALIF Arabic - онлайн-курс арабского языка',
-    description: 'ALIF Arabic: короткие уроки, практика речи, личный кабинет и понятный маршрут обучения арабскому языку.',
+    title: 'Аленка Glow - сайт, посвященный Аленке',
+    description: 'Аленка Glow: теплый сайт-посвящение крутой девочке Аленке, ее улыбке, характеру, моментам и маленьким сюрпризам.',
   },
   program: {
-    title: 'Программа курса - ALIF Arabic',
-    description: 'Алфавит, чтение, разговорные фразы, грамматика и голосовая практика для начинающих.',
+    title: 'Почему Аленка особенная - Аленка Glow',
+    description: 'Раздел о том, почему Аленка такая крутая: характер, улыбка, энергия, забота и то самое ощущение дома рядом с ней.',
   },
   pricing: {
-    title: 'Тарифы - ALIF Arabic',
-    description: 'Выберите тариф обучения арабскому языку: Base, Pro или VIP.',
+    title: 'Сюрпризы для Аленки - Аленка Glow',
+    description: 'Форматы внимания для Аленки: нежное сообщение, день вместе и большой сюрприз.',
   },
   payment: {
-    title: 'Оплата и запись - ALIF Arabic',
-    description: 'Оформление выбранного курса, промокод, дата старта и демо-оплата.',
+    title: 'Оформление сюрприза - Аленка Glow',
+    description: 'Выбор даты, контактов и красивого демо-оформления сюрприза для Аленки.',
   },
   courses: {
-    title: 'Мои курсы - ALIF Arabic',
-    description: 'Купленные курсы, активные доступы и история обучения.',
+    title: 'Моменты для Аленки - Аленка Glow',
+    description: 'Сохраненные планы, сюрпризы, чек-листы и история теплых моментов для Аленки.',
   },
   profile: {
-    title: 'Профиль ученика - ALIF Arabic',
-    description: 'Личный кабинет ученика: данные, промокоды, настройки и история курсов.',
+    title: 'Профиль Аленки - Аленка Glow',
+    description: 'Личный уголок Аленки: фото, любимые детали, заметки, планы и настройки сайта-посвящения.',
   },
   faq: {
-    title: 'FAQ - ALIF Arabic',
-    description: 'Ответы на вопросы о курсе, оплате, тарифах и формате обучения.',
+    title: 'Письма и ответы - Аленка Glow',
+    description: 'Нежные ответы, идеи сообщений и форма, чтобы оставить Аленке еще одно теплое послание.',
   },
 };
 
 const plans = [
   {
     id: 'base',
-    name: 'Base',
+    name: 'Нежность',
     price: 9900,
-    accent: 'Самостоятельный старт',
-    text: 'Видеоуроки, тренажеры и понятный недельный маршрут без привязки к группе.',
-    format: 'Самостоятельный формат',
-    schedule: '20 минут в день в своем темпе',
-    process: 'После оплаты открываются уроки, задания, заметки и личный трек прогресса.',
-    result: 'Подходит для мягкого старта с алфавитом, чтением и базовыми фразами.',
-    features: ['12 видеоуроков', 'рабочая тетрадь', 'еженедельные задания', 'доступ на 4 месяца'],
+    accent: 'Теплый знак внимания',
+    text: 'Красивое сообщение, маленький план дня и несколько причин, почему Аленка такая любимая.',
+    format: 'Личное письмо',
+    schedule: 'один вечер, который легко запомнить',
+    process: 'Выбирается настроение, дата и набор слов, которые хочется оставить только для нее.',
+    result: 'Идеально, если хочется сказать Аленке простое, честное и очень теплое “ты важна”.',
+    features: ['личное письмо', '3 причины улыбнуться', 'план уютного вечера', 'сохранение в моментах'],
   },
   {
     id: 'pro',
-    name: 'Pro',
+    name: 'Сияние',
     price: 18900,
-    accent: 'Самый популярный',
-    text: 'Группа, практика речи, чат и проверка домашних заданий преподавателем.',
-    format: 'Группа и обратная связь',
-    schedule: '1 групповой созвон в неделю и задания между встречами',
-    process: 'Ты проходишь уроки, сдаешь голосовые задания и раз в неделю практикуешь речь.',
-    result: 'Оптимален, если хочешь говорить регулярно и получать правки по произношению.',
-    features: ['все из Base', 'групповые созвоны', 'чат с преподавателем', 'проверка речи'],
+    accent: 'Самый романтичный',
+    text: 'Мини-праздник для Аленки: комплименты, маршрут свидания, плейлист и список маленьких радостей.',
+    format: 'День для Аленки',
+    schedule: 'вечер вместе и несколько приятных деталей',
+    process: 'Собирается цельный сценарий: куда пойти, что сказать, что подарить и чем закончить день.',
+    result: 'Лучший вариант, если хочется, чтобы Аленка почувствовала себя главной героиней.',
+    features: ['все из “Нежность”', 'план свидания', 'плейлист настроения', 'чек-лист подарка'],
   },
   {
     id: 'vip',
-    name: 'VIP',
+    name: 'Навсегда',
     price: 39900,
-    accent: 'Личный маршрут',
-    text: 'Индивидуальный план и личные уроки с преподавателем под твою цель.',
-    format: 'Индивидуальное сопровождение',
-    schedule: 'личные уроки по согласованному времени',
-    process: 'Преподаватель собирает план, проводит занятия и корректирует нагрузку каждую неделю.',
-    result: 'Лучший вариант для быстрого прогресса, гибкого графика и персональной поддержки.',
-    features: ['все из Pro', '8 личных уроков', 'персональный план', 'разбор ошибок'],
+    accent: 'Большое посвящение',
+    text: 'Полная капсула чувств: письмо, планы, история моментов и отдельное место для ваших будущих воспоминаний.',
+    format: 'Большой сюрприз',
+    schedule: 'особенная дата и продолжение после нее',
+    process: 'Сайт превращается в личную вселенную Аленки с планами, заметками и историей теплых дней.',
+    result: 'Для момента, который хочется сделать большим, красивым и по-настоящему личным.',
+    features: ['все из “Сияние”', 'капсула воспоминаний', 'персональный план', 'история моментов'],
   },
 ];
 
 const promoCodes = {
-  ALIFSTART: {
-    title: 'Стартовая акция',
+  ALENKA: {
+    title: 'Код для Аленки',
     discount: 2000,
-    text: 'Скидка на первый месяц обучения и быстрый доступ к вводному модулю.',
+    text: 'Маленький знак, что этот сайт с самого начала сделан только для нее.',
     coursePage: 'program',
   },
-  SPEAK10: {
-    title: 'Разговорная практика',
+  LOVE10: {
+    title: 'Плюс к нежности',
     percent: 10,
-    text: 'Скидка 10% на тариф с обратной связью и голосовыми заданиями.',
+    text: 'Минус 10% к сумме и плюс один повод сказать Аленке что-то хорошее.',
     coursePage: 'pricing',
   },
 };
@@ -124,79 +135,79 @@ const modules = [
   {
     id: 'letters',
     num: '01',
-    title: 'Алфавит без боли',
-    text: 'Буквы, связки, чтение и уверенность с первого занятия.',
-    focus: 'Чтение',
-    lessons: ['Формы букв', 'Гласные и огласовки', 'Первые слова'],
+    title: 'Ее улыбка',
+    text: 'Та самая улыбка, после которой день становится мягче, светлее и как будто правильнее.',
+    focus: 'Свет',
+    lessons: ['Когда она смеется', 'Как меняется день', 'Почему это ценно'],
   },
   {
     id: 'speaking',
     num: '02',
-    title: 'Разговорный старт',
-    text: 'Фразы, реакции, интонация и короткие живые диалоги.',
-    focus: 'Речь',
-    lessons: ['Приветствие', 'О себе', 'Вопросы и ответы'],
+    title: 'Ее характер',
+    text: 'Аленка крутая не потому что старается казаться такой, а потому что в ней правда есть сила.',
+    focus: 'Сила',
+    lessons: ['Смелость', 'Нежность', 'Своя энергия'],
   },
   {
     id: 'grammar',
     num: '03',
-    title: 'Грамматика в речи',
-    text: 'Правила через ситуации, а не через сухие таблицы.',
-    focus: 'Смысл',
-    lessons: ['Род и число', 'Простые фразы', 'Связки слов'],
+    title: 'Наши моменты',
+    text: 'Маленькие сцены, фразы и взгляды, которые не хочется терять среди обычных дней.',
+    focus: 'Память',
+    lessons: ['Первый смех', 'Любимые места', 'Фразы только ваши'],
   },
   {
     id: 'sprint',
     num: '04',
-    title: 'Личный спринт',
-    text: 'План, домашка, контроль и обратная связь.',
-    focus: 'Практика',
-    lessons: ['Голосовая запись', 'Диалог', 'Финальная сцена'],
+    title: 'Будущие планы',
+    text: 'Все, что хочется сделать для нее: свидания, поездки, подарки и спокойные вечера рядом.',
+    focus: 'Будущее',
+    lessons: ['Свидание', 'Путешествие', 'Большой сюрприз'],
   },
 ];
 
 const lessons = [
-  { id: '01', module: 'letters', title: 'Формы букв', duration: 17, status: 'open' },
-  { id: '02', module: 'letters', title: 'Короткие слова', duration: 21, status: 'open' },
-  { id: '03', module: 'speaking', title: 'Приветствие', duration: 16, status: 'open' },
-  { id: '04', module: 'speaking', title: 'Говорим о себе', duration: 23, status: 'open' },
-  { id: '05', module: 'grammar', title: 'Вопросы и ответы', duration: 18, status: 'next' },
-  { id: '06', module: 'sprint', title: 'Мини-диалог', duration: 21, status: 'locked' },
+  { id: '01', module: 'letters', title: 'Улыбка, которая лечит день', duration: 17, status: 'open' },
+  { id: '02', module: 'letters', title: 'Свет в обычных мелочах', duration: 21, status: 'open' },
+  { id: '03', module: 'speaking', title: 'Почему она крутая', duration: 16, status: 'open' },
+  { id: '04', module: 'speaking', title: 'Нежность и характер', duration: 23, status: 'open' },
+  { id: '05', module: 'grammar', title: 'Любимые воспоминания', duration: 18, status: 'next' },
+  { id: '06', module: 'sprint', title: 'План большого сюрприза', duration: 21, status: 'locked' },
 ];
 
 const courseLessonsByPlan = {
   base: [
-    { id: 'base-01', title: 'Алфавит и формы букв', duration: 18 },
-    { id: 'base-02', title: 'Огласовки и короткие слова', duration: 22 },
-    { id: 'base-03', title: 'Чтение простых фраз', duration: 20 },
-    { id: 'base-04', title: 'Базовые приветствия', duration: 16 },
-    { id: 'base-05', title: 'Мини-диалог для поездки', duration: 24 },
+    { id: 'base-01', title: 'Написать Аленке теплое письмо', duration: 18 },
+    { id: 'base-02', title: 'Собрать 5 причин любоваться ей', duration: 22 },
+    { id: 'base-03', title: 'Выбрать маленький подарок', duration: 20 },
+    { id: 'base-04', title: 'Запланировать уютный вечер', duration: 16 },
+    { id: 'base-05', title: 'Сказать все лично', duration: 24 },
   ],
   pro: [
-    { id: 'pro-01', title: 'Алфавит и произношение', duration: 18 },
-    { id: 'pro-02', title: 'Чтение и первые слова', duration: 22 },
-    { id: 'pro-03', title: 'Приветствие и знакомство', duration: 19 },
-    { id: 'pro-04', title: 'Рассказ о себе', duration: 24 },
-    { id: 'pro-05', title: 'Вопросы и ответы', duration: 21 },
-    { id: 'pro-06', title: 'Голосовая практика', duration: 26 },
-    { id: 'pro-07', title: 'Диалог с преподавателем', duration: 30 },
+    { id: 'pro-01', title: 'Продумать день для Аленки', duration: 18 },
+    { id: 'pro-02', title: 'Выбрать место для свидания', duration: 22 },
+    { id: 'pro-03', title: 'Подготовить слова без пафоса', duration: 19 },
+    { id: 'pro-04', title: 'Собрать плейлист настроения', duration: 24 },
+    { id: 'pro-05', title: 'Добавить маленький сюрприз', duration: 21 },
+    { id: 'pro-06', title: 'Сделать фото на память', duration: 26 },
+    { id: 'pro-07', title: 'Закончить вечер признанием', duration: 30 },
   ],
   vip: [
-    { id: 'vip-01', title: 'Диагностика уровня и цель', duration: 25 },
-    { id: 'vip-02', title: 'Личный план произношения', duration: 30 },
-    { id: 'vip-03', title: 'Разговорные сценарии', duration: 28 },
-    { id: 'vip-04', title: 'Грамматика через речь', duration: 26 },
-    { id: 'vip-05', title: 'Персональная голосовая правка', duration: 32 },
-    { id: 'vip-06', title: 'Практика живого диалога', duration: 34 },
-    { id: 'vip-07', title: 'Финальная разговорная сцена', duration: 30 },
-    { id: 'vip-08', title: 'План дальнейшего обучения', duration: 22 },
+    { id: 'vip-01', title: 'Выбрать особенную дату', duration: 25 },
+    { id: 'vip-02', title: 'Собрать капсулу воспоминаний', duration: 30 },
+    { id: 'vip-03', title: 'Написать большое письмо', duration: 28 },
+    { id: 'vip-04', title: 'Подготовить маршрут дня', duration: 26 },
+    { id: 'vip-05', title: 'Добавить подарок со смыслом', duration: 32 },
+    { id: 'vip-06', title: 'Сделать место для новых моментов', duration: 34 },
+    { id: 'vip-07', title: 'Показать Аленке сайт', duration: 30 },
+    { id: 'vip-08', title: 'Запланировать продолжение', duration: 22 },
   ],
 };
 
 const tasks = [
-  'Повторить 12 букв вслух',
-  'Записать голос на 45 секунд',
-  'Прочитать мини-диалог без подсказок',
+  'Написать Аленке один честный комплимент',
+  'Выбрать место для следующей прогулки',
+  'Добавить в заметку новую идею сюрприза',
 ];
 
 const bookingSlots = [
@@ -207,34 +218,34 @@ const bookingSlots = [
 ];
 
 const paymentMethods = [
-  ['card', 'Банковская карта', 'Visa, Mastercard, МИР'],
-  ['wallet', 'Электронный кошелек', 'быстрая оплата без ввода карты'],
-  ['invoice', 'Счет на оплату', 'для компании или оплаты частями'],
+  ['card', 'Красивое обещание', 'сохранить сюрприз и довести до конца'],
+  ['wallet', 'Подарок руками', 'сделать что-то личное и настоящее'],
+  ['invoice', 'План на день', 'разложить внимание по шагам'],
 ];
 
 const adminLogin = 'admin';
 const adminPassword = 'admin123';
-const learningStatuses = ['Новый', 'Обучается', 'Завершил', 'Пауза'];
-const adminTariffs = ['Base', 'Pro', 'VIP'];
+const learningStatuses = ['Новый', 'Готовится', 'Подарен', 'Пауза'];
+const adminTariffs = ['Нежность', 'Сияние', 'Навсегда'];
 
 const demoRegistrations = [
-  { id: 'demo-user-1', name: 'Амина Садыкова', email: 'amina@example.com', phone: '+7 900 111-22-33', registeredAt: '2026-06-05T10:00:00.000Z', status: 'Новый' },
-  { id: 'demo-user-2', name: 'Мурад Алиев', email: 'murad@example.com', phone: '+7 900 222-33-44', registeredAt: '2026-06-09T12:00:00.000Z', status: 'Активен' },
-  { id: 'demo-user-3', name: 'Лейла Каримова', email: 'leyla@example.com', phone: '+7 900 333-44-55', registeredAt: '2026-06-12T09:00:00.000Z', status: 'Новый' },
+  { id: 'demo-user-1', name: 'Аленка', email: 'alenka@example.com', phone: '+7 900 111-22-33', registeredAt: '2026-06-05T10:00:00.000Z', status: 'Главная' },
+  { id: 'demo-user-2', name: 'Любимый человек', email: 'love@example.com', phone: '+7 900 222-33-44', registeredAt: '2026-06-09T12:00:00.000Z', status: 'Готовит сюрприз' },
+  { id: 'demo-user-3', name: 'Будущий момент', email: 'moment@example.com', phone: '+7 900 333-44-55', registeredAt: '2026-06-12T09:00:00.000Z', status: 'В планах' },
 ];
 
 const demoCourses = [
   {
     id: 'demo-course-1',
-    userName: 'Амина Садыкова',
-    email: 'amina@example.com',
+    userName: 'Аленка',
+    email: 'alenka@example.com',
     phone: '+7 900 111-22-33',
     planId: 'base',
-    planName: 'Base',
+    planName: 'Нежность',
     total: 7900,
-    promoCode: 'ALIFSTART',
+    promoCode: 'ALENKA',
     paidAt: '2026-06-05T10:20:00.000Z',
-    paymentStatus: 'Оплачено / демо',
+    paymentStatus: 'Сохранено / демо',
     status: 'active',
     lessonsTotal: 5,
     lessonsDone: 1,
@@ -243,15 +254,15 @@ const demoCourses = [
   },
   {
     id: 'demo-course-2',
-    userName: 'Мурад Алиев',
-    email: 'murad@example.com',
+    userName: 'Любимый человек',
+    email: 'love@example.com',
     phone: '+7 900 222-33-44',
     planId: 'pro',
-    planName: 'Pro',
+    planName: 'Сияние',
     total: 17010,
-    promoCode: 'SPEAK10',
+    promoCode: 'LOVE10',
     paidAt: '2026-06-09T13:30:00.000Z',
-    paymentStatus: 'Оплачено / демо',
+    paymentStatus: 'Сохранено / демо',
     status: 'active',
     lessonsTotal: 7,
     lessonsDone: 3,
@@ -260,15 +271,15 @@ const demoCourses = [
   },
   {
     id: 'demo-course-3',
-    userName: 'Лейла Каримова',
-    email: 'leyla@example.com',
+    userName: 'Будущий момент',
+    email: 'moment@example.com',
     phone: '+7 900 333-44-55',
     planId: 'vip',
-    planName: 'VIP',
+    planName: 'Навсегда',
     total: 39900,
     promoCode: '',
     paidAt: '2026-06-12T15:10:00.000Z',
-    paymentStatus: 'Оплачено / демо',
+    paymentStatus: 'Сохранено / демо',
     status: 'active',
     lessonsTotal: 8,
     lessonsDone: 0,
@@ -278,24 +289,24 @@ const demoCourses = [
 ];
 
 const faqItems = [
-  ['Можно ли с нуля?', 'Да. Курс начинается с алфавита, чтения и базовых фраз. Первый результат виден уже после стартового блока.'],
-  ['Сколько времени нужно?', 'В среднем достаточно 20 минут в день и одного практического блока в неделю.'],
-  ['Что происходит после оплаты?', 'Курс появляется в разделе “Мои курсы”, а дата старта и сумма сохраняются в профиле.'],
-  ['Можно поменять тариф?', 'Да. Новый формат можно оформить отдельной покупкой, а история останется в кабинете.'],
-  ['Есть ли обратная связь?', 'На тарифах Pro и VIP преподаватель проверяет речь, домашние задания и помогает собрать личный маршрут.'],
+  ['Почему сайт про Аленку?', 'Потому что Аленка крутая девочка, ради которой хочется делать красивые вещи и говорить хорошие слова вслух.'],
+  ['Что здесь можно сохранить?', 'Планы, идеи сюрпризов, заметки, даты и маленькие воспоминания, которые хочется не потерять.'],
+  ['Это настоящий магазин?', 'Нет. Это демо-оформление подарков и моментов: все сохраняется локально, чтобы сайт ощущался живым.'],
+  ['Можно менять формат сюрприза?', 'Да. Можно выбрать “Нежность”, “Сияние” или “Навсегда” и собрать настроение под конкретный день.'],
+  ['Что главное на этом сайте?', 'Главное, чтобы Аленка увидела: о ней думали, ее ценят, ею гордятся и ей посвящают целый сайт.'],
 ];
 
 const defaultProfile = {
-  name: 'Амина',
-  email: 'student@mail.ru',
+  name: 'Аленка',
+  email: 'alenka@mail.ru',
   phone: '+7 900 000-00-00',
   photo: '',
   city: 'Владивосток',
-  goal: 'Свободно говорить в поездке',
-  level: 'A0',
+  goal: 'Сиять, улыбаться и быть самой любимой',
+  level: 'Glow',
   minutes: 20,
   planId: 'pro',
-  promoCode: 'ALIFSTART',
+  promoCode: 'ALENKA',
   notifications: true,
   darkMode: false,
 };
@@ -343,9 +354,9 @@ function formatAdminDate(value) {
 
 function normalizeTariffName(value) {
   const plan = String(value || '').toLowerCase();
-  if (plan.includes('vip')) return 'VIP';
-  if (plan.includes('pro')) return 'Pro';
-  return 'Base';
+  if (plan.includes('vip') || plan.includes('навсегда')) return 'Навсегда';
+  if (plan.includes('pro') || plan.includes('сияние')) return 'Сияние';
+  return 'Нежность';
 }
 
 function normalizeLearningStatus(value, fallback = 'Новый') {
@@ -365,7 +376,7 @@ function uniqueByEmail(items) {
 function makeRegistration(profile, status = 'Новый') {
   return {
     id: profile.id || `user-${Date.now()}`,
-    name: profile.name || 'Ученик',
+    name: profile.name || 'Аленка',
     email: (profile.email || '').trim().toLowerCase(),
     phone: profile.phone || '',
     registeredAt: profile.registeredAt || new Date().toISOString(),
@@ -383,14 +394,14 @@ function getCourseProgress(course) {
 function getCurrentLesson(course) {
   const lessons = courseLessonsByPlan[course.planId] || courseLessonsByPlan.base;
   const done = course.lessonsDone || (course.completedLessonIds || []).length || 0;
-  return lessons[Math.min(done, lessons.length - 1)]?.title || 'Урок 1';
+  return lessons[Math.min(done, lessons.length - 1)]?.title || 'Момент 1';
 }
 
 function getLessonState(planId, completedLessonIds = []) {
   const lessons = courseLessonsByPlan[planId] || courseLessonsByPlan.base;
   const completed = completedLessonIds.filter((lessonId) => lessons.some((lesson) => lesson.id === lessonId));
   const progress = lessons.length ? Math.round((completed.length / lessons.length) * 100) : 0;
-  const currentLesson = lessons[Math.min(completed.length, Math.max(lessons.length - 1, 0))]?.title || 'Урок 1';
+  const currentLesson = lessons[Math.min(completed.length, Math.max(lessons.length - 1, 0))]?.title || 'Момент 1';
 
   return { lessons, completedLessonIds: completed, progress, currentLesson };
 }
@@ -408,12 +419,12 @@ function buildAdminData({ profile, isLoggedIn, registrations, courses, adminStud
       id: `course-${course.id}`,
       courseId: course.id,
       planId: course.planId || 'base',
-      name: course.userName || profile?.name || 'Ученик',
+      name: course.userName || profile?.name || 'Аленка',
       email: (course.email || profile?.email || '').trim().toLowerCase(),
       tariff: normalizeTariffName(course.planName || course.planId),
       currentLesson: getCurrentLesson(course),
       progress: getCourseProgress(course),
-      learningStatus: course.status === 'completed' ? 'Завершил' : 'Обучается',
+      learningStatus: course.status === 'completed' ? 'Подарен' : 'Готовится',
       lessons: courseLessonsByPlan[course.planId] || courseLessonsByPlan.base,
       completedLessonIds: course.completedLessonIds || [],
       updatedAt: course.paidAt || new Date().toISOString(),
@@ -486,7 +497,7 @@ function navigate(page) {
 }
 
 function initials(name) {
-  return (name || 'Ученик')
+  return (name || 'Аленка')
     .split(' ')
     .filter(Boolean)
     .map((part) => part[0])
@@ -526,7 +537,7 @@ async function sendAuthCode(email, code, mode) {
         code,
         auth_code: code,
         auth_mode: mode === 'register' ? 'Регистрация' : 'Вход',
-        app_name: 'ALIF Arabic',
+        app_name: 'Аленка Glow',
       },
     }),
   });
@@ -565,7 +576,7 @@ async function sendFeedbackMessage({ name, email, phone, message }) {
         from_email: email,
         phone,
         message,
-        app_name: 'ALIF Arabic',
+        app_name: 'Аленка Glow',
       },
     }),
   });
@@ -608,14 +619,14 @@ function PromoInput({ value, onChange, promo, discount, compact = false }) {
   return (
     <div className={`promo-input ${compact ? 'compact' : ''}`}>
       <label>
-        <span>Промокод</span>
+        <span>Код настроения</span>
         <div>
           <BadgePercent size={18} />
-          <input value={value} onChange={(event) => onChange(event.target.value.toUpperCase())} placeholder="ALIFSTART" />
+          <input value={value} onChange={(event) => onChange(event.target.value.toUpperCase())} placeholder="ALENKA" />
         </div>
       </label>
       <p className={promo ? 'valid' : ''}>
-        {promo ? `${promo.title}: скидка ${discount ? formatPrice(discount) : 'применена'}` : 'Введите код акции, если он есть'}
+        {promo ? `${promo.title}: нежность ${discount ? formatPrice(discount) : 'применена'}` : 'Введите код, если хочется добавить магии'}
       </p>
     </div>
   );
@@ -639,8 +650,8 @@ function Header({ activePage, profile, isLoggedIn, onLogin, onRegister }) {
 
   return (
     <nav className={`nav ${isScrolled ? 'scrolled' : ''}`}>
-      <a className="brand" href="#/home" aria-label="ALIF Arabic">
-        <img src={brandLogo} alt="ALIF Arabic" />
+      <a className="brand" href="#/home" aria-label="Аленка Glow">
+        <span className="brand-name">Аленка Glow</span>
       </a>
       <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
         {visibleNavItems.map(([page, label]) => (
@@ -650,19 +661,19 @@ function Header({ activePage, profile, isLoggedIn, onLogin, onRegister }) {
         ))}
         {!isLoggedIn && (
           <div className="nav-mobile-auth">
-            <button type="button" onClick={onLogin}>Вход</button>
-            <button type="button" onClick={onRegister}>Регистрация</button>
+            <button type="button" onClick={onLogin}>Войти</button>
+            <button type="button" onClick={onRegister}>Создать момент</button>
           </div>
         )}
       </div>
       <div className={`nav-tools ${isLoggedIn ? '' : 'guest'}`}>
         {!isLoggedIn && (
           <div className="auth-actions compact">
-            <button type="button" onClick={onLogin}>Вход</button>
-            <button type="button" onClick={onRegister}>Регистрация</button>
+            <button type="button" onClick={onLogin}>Войти</button>
+            <button type="button" onClick={onRegister}>Создать момент</button>
           </div>
         )}
-        <a className="mini-profile" href="#/profile" aria-label="Профиль">
+        <a className="mini-profile" href="#/profile" aria-label="Аленка">
           {profile.photo ? <img src={profile.photo} alt="" /> : <span>{initials(profile.name)}</span>}
         </a>
         <IconButton className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-label="Меню">
@@ -674,7 +685,7 @@ function Header({ activePage, profile, isLoggedIn, onLogin, onRegister }) {
   );
 }
 
-function PageHero({ eyebrow, title, visual = heroProgram, children }) {
+function PageHero({ eyebrow, title, visual = alenkaWarmClose, children }) {
   return (
     <section className="page-hero reveal page-hero-with-art">
       <div className="page-hero-copy">
@@ -692,7 +703,7 @@ function PageHero({ eyebrow, title, visual = heroProgram, children }) {
 function StatPill({ label, value, text }) {
   return (
     <article className="stat-pill">
-      <small>Курс</small>
+      <small>Аленка</small>
       <span>{label}</span>
       <strong>{value}</strong>
       <p>{text}</p>
@@ -705,21 +716,21 @@ function PhoneMockup({ playing }) {
     <div className="phone">
       <div className="phone-top" />
       <div className="lesson-card active">
-        <span>Урок 04</span>
-        <strong>Говорим о себе</strong>
+        <span>Момент 04</span>
+        <strong>Письмо Аленке</strong>
         <div className={`wave ${playing ? 'playing' : ''}`}>
           {Array.from({ length: 18 }).map((_, index) => (
             <i key={index} style={{ '--bar': `${18 + ((index * 11) % 42)}px`, '--delay': `${index * 45}ms` }} />
           ))}
         </div>
       </div>
-      <div className="chat-bubble left">كيف حالك؟</div>
-      <div className="chat-bubble right">У меня получилось!</div>
+      <div className="chat-bubble left">Ты сегодня сияешь</div>
+      <div className="chat-bubble right">Аленка, ты чудо</div>
       <div className="mini-grid">
-        <span>ح</span>
-        <span>خ</span>
-        <span>ج</span>
-        <span>ث</span>
+        <span>А</span>
+        <span>Л</span>
+        <span>Е</span>
+        <span>Н</span>
       </div>
     </div>
   );
@@ -730,36 +741,36 @@ function HomePage({ progress, selectedPlan, onSelectPlan }) {
     <>
       <section className="hero">
         <div className="hero-copy reveal">
-          <p className="kicker">Онлайн-курс арабского с нуля</p>
-          <h1>Заговори на <span>арабском</span> за 3 месяца</h1>
+          <p className="kicker">Сайт-посвящение крутой девочке</p>
+          <h1>Аленка, этот сайт <span>про тебя</span></h1>
           <p className="hero-text">
-            Короткие уроки, практика речи, личный кабинет и понятный маршрут от алфавита до живого диалога.
+            Про твою улыбку, характер, красоту, свет и все маленькие моменты, из-за которых ты становишься самым любимым человеком.
           </p>
           <div className="hero-actions">
-            <LinkButton to="pricing" icon={ArrowRight}>Выбрать тариф</LinkButton>
+            <LinkButton to="program" icon={ArrowRight}>Почему Аленка</LinkButton>
           </div>
           <div className="hero-stats">
-            <StatPill label="уроков" value="36" text="короткие блоки по 15-25 минут" />
-            <StatPill label="практик" value="18" text="голосовые задания с проверкой" />
-            <StatPill label="прогресс" value={`${progress}%`} text="виден в личном кабинете" />
+            <StatPill label="улыбок" value="∞" text="и каждая делает день лучше" />
+            <StatPill label="причин" value="100+" text="гордиться и любоваться тобой" />
+            <StatPill label="моментов" value={`${progress}%`} text="уже сохранено в этом уголке" />
           </div>
         </div>
         <div className="hero-visual">
-          <img src={heroCity} alt="Город и архитектура арабского мира" loading="eager" decoding="async" fetchPriority="high" />
-          <div className="arabic-layer">العربية</div>
+          <img src={alenkaHoodie} alt="Аленка в мягком свете" loading="eager" decoding="async" fetchPriority="high" />
+          <div className="arabic-layer">АЛЕНКА</div>
         </div>
       </section>
 
       <section className="split-section compact">
         <div>
-          <p className="eyebrow">Метод</p>
-          <h2>Учишься короткими шагами</h2>
+          <p className="eyebrow">Посвящение</p>
+          <h2>Все здесь собрано вокруг Аленки</h2>
         </div>
         <div className="method-lines">
           {[
-            ['Сначала звук', 'Разбираем буквы и произношение так, чтобы не было страха перед письмом.'],
-            ['Потом фраза', 'Сразу собираем короткие диалоги для поездки, общения и учебы.'],
-            ['Затем практика', 'Задания, голосовые записи и прогресс сохраняются в профиле.'],
+            ['Сначала чувства', 'Без сложных слов: просто честно о том, какая Аленка красивая, сильная и родная.'],
+            ['Потом моменты', 'Сюда можно складывать планы, идеи, маленькие даты и воспоминания, которые хочется беречь.'],
+            ['Затем сюрпризы', 'Каждый формат помогает придумать, как сделать ей приятно и оставить это на сайте.'],
           ].map(([title, text], index) => (
             <article className="hover-lift" key={title}>
               <span className="method-mark">0{index + 1}</span>
@@ -772,23 +783,23 @@ function HomePage({ progress, selectedPlan, onSelectPlan }) {
 
       <section className="spotlight-section">
         <div className="selected-plan-info">
-          <p className="eyebrow">Выбранный тариф</p>
+          <p className="eyebrow">Выбранный формат</p>
           <h2>{selectedPlan.name}</h2>
           <div className="tariff-explain">
             <span>{selectedPlan.accent}</span>
             <p>{selectedPlan.process}</p>
             <div>
-              <strong>Формат</strong>
+              <strong>Настроение</strong>
               <small>{selectedPlan.format}</small>
             </div>
             <div>
-              <strong>Результат</strong>
+              <strong>Для чего</strong>
               <small>{selectedPlan.result}</small>
             </div>
           </div>
         </div>
         <figure className="spotlight-photo">
-          <img src={heroCity} alt="" loading="lazy" decoding="async" />
+          <img src={alenkaMirrorSoft} alt="" loading="lazy" decoding="async" />
         </figure>
         <aside className="mini-plans">
           {plans.map((plan) => (
@@ -810,21 +821,35 @@ function HomePage({ progress, selectedPlan, onSelectPlan }) {
           <PhoneMockup playing />
         </div>
         <div>
-          <p className="kicker">Личный кабинет</p>
-          <h2>Курсы, задания и заметки в одном месте</h2>
+          <p className="kicker">Личный уголок</p>
+          <h2>Моменты, планы и заметки про Аленку</h2>
           <p className="hero-text">
-            Оплаченные курсы живут на отдельной странице, а в профиле остаются только нужные данные и настройки.
+            Здесь можно сохранить идеи сюрпризов, отмечать подготовку, вести заметку и собирать историю приятных дней.
           </p>
-          <LinkButton to="courses" variant="dark" icon={ArrowRight}>Открыть курсы</LinkButton>
+          <LinkButton to="courses" variant="dark" icon={ArrowRight}>Открыть моменты</LinkButton>
+        </div>
+      </section>
+
+      <section className="photo-gallery-section">
+        <div>
+          <p className="eyebrow">Кадры</p>
+          <h2>Аленка в каждом настроении</h2>
+        </div>
+        <div className="alenka-photo-grid">
+          {alenkaGallery.map((photo, index) => (
+            <figure key={photo} className={`alenka-photo-tile tile-${index + 1}`}>
+              <img src={photo} alt={`Фото Аленки ${index + 1}`} loading="lazy" decoding="async" />
+            </figure>
+          ))}
         </div>
       </section>
 
       <section className="home-links">
         {[
-          ['01', 'Программа', 'модули и уроки', 'program'],
-          ['02', 'Тарифы', 'форматы обучения', 'pricing'],
-          ['03', 'Профиль', 'данные и история', 'profile'],
-          ['04', 'FAQ', 'ответы перед стартом', 'faq'],
+          ['01', 'Почему она', 'улыбка, характер, свет', 'program'],
+          ['02', 'Сюрпризы', 'форматы внимания', 'pricing'],
+          ['03', 'Аленка', 'профиль и заметки', 'profile'],
+          ['04', 'Письма', 'теплые ответы', 'faq'],
         ].map(([num, title, text, to]) => (
           <a href={`#/${to}`} key={to}>
             <span className="link-num">{num}</span>
@@ -837,12 +862,12 @@ function HomePage({ progress, selectedPlan, onSelectPlan }) {
 
       <section className="final-cta slim">
         <div>
-          <p className="kicker">Готов к первому уроку?</p>
-          <h2>Выбери тариф и начни маршрут сегодня</h2>
+          <p className="kicker">Готов сделать ей приятно?</p>
+          <h2>Выбери формат и собери для Аленки красивый момент</h2>
         </div>
-        <LinkButton to="pricing" variant="dark" icon={ArrowRight}>Выбрать тариф</LinkButton>
+        <LinkButton to="pricing" variant="dark" icon={ArrowRight}>Выбрать сюрприз</LinkButton>
         <div className="cta-slice" aria-hidden="true">
-          <img src={studyCity} alt="" loading="lazy" decoding="async" />
+          <img src={alenkaDeskMirror} alt="" loading="lazy" decoding="async" />
         </div>
       </section>
     </>
@@ -859,9 +884,9 @@ function ProgramPage() {
   return (
     <div className="page">
       <PageHero
-        eyebrow="Программа"
-        title="Маршрут от алфавита до разговора"
-        visual={heroProgram}
+        eyebrow="Почему Аленка"
+        title="Причины посвятить ей целый сайт"
+        visual={alenkaWarmClose}
       />
 
       <section className="program-studio">
@@ -884,13 +909,13 @@ function ProgramPage() {
         <div className="program-stage">
           <div className="program-stage-head">
             <div>
-              <p className="eyebrow">Активный модуль</p>
+              <p className="eyebrow">Активная причина</p>
               <h2>{currentModule.title}</h2>
               <p>{currentModule.text}</p>
             </div>
             <div className="program-diagonal-progress" style={{ '--progress': `${moduleProgress}%` }}>
               <div className="diagonal-progress-label">
-                <span>заполнение маршрута</span>
+                <span>заполнение сердца</span>
                 <strong>{moduleProgress}%</strong>
               </div>
               <div className="diagonal-progress-track">
@@ -909,7 +934,7 @@ function ProgramPage() {
                 <span>{String(index + 1).padStart(2, '0')}</span>
                 <div>
                   <strong>{lesson.title}</strong>
-                  <small>{lesson.duration} минут · тема модуля {currentModule.num}</small>
+                  <small>{lesson.duration} минут · глава {currentModule.num}</small>
                 </div>
                 <b>{currentModule.focus}</b>
               </article>
@@ -921,8 +946,9 @@ function ProgramPage() {
       <section className="program-benefits">
         {[
           ['Сценарии', 'Фразы для поездки, знакомства и учебных диалогов.'],
-          ['Произношение', 'Голосовые задания и обратная связь на тарифах Pro и VIP.'],
-          ['Контроль', 'Прогресс, заметки и покупки сохраняются в кабинете.'],
+          ['Комплименты', 'Слова, которые хочется сказать Аленке без повода и без стеснения.'],
+          ['Планы', 'Идеи свиданий, прогулок, подарков и тихих вечеров рядом.'],
+          ['Память', 'Прогресс, заметки и моменты сохраняются в личном уголке.'],
         ].map(([title, text]) => (
           <article key={title}>
             <BookOpen size={22} />
@@ -939,9 +965,9 @@ function PricingPage({ selectedPlanId, onSelectPlan }) {
   return (
     <div className="page">
       <PageHero
-        eyebrow="Тарифы"
-        title="Выбери курс и сразу перейди к оплате"
-        visual={heroPricing}
+        eyebrow="Сюрпризы"
+        title="Выбери формат внимания для Аленки"
+        visual={alenkaMirrorClose}
       />
       <section className="plans purchase-plans">
         <div className="plan-grid">
@@ -959,7 +985,7 @@ function PricingPage({ selectedPlanId, onSelectPlan }) {
                 {plan.features.map((feature) => <li key={feature}>{feature}</li>)}
               </ul>
               <ActionButton icon={ArrowRight} onClick={() => onSelectPlan(plan.id, true)}>
-                Оформить тариф
+                Собрать сюрприз
               </ActionButton>
             </article>
           ))}
@@ -967,12 +993,12 @@ function PricingPage({ selectedPlanId, onSelectPlan }) {
       </section>
       <section className="pricing-strip">
         {[
-          ['Без скрытых шагов', 'Сумма считается сразу с промокодом.'],
-          ['Доступ после оплаты', 'Курс появляется на странице “Мои курсы”.'],
-          ['Можно сменить формат', 'Новый тариф оформляется отдельной покупкой.'],
+          ['Без лишнего пафоса', 'Все строится вокруг честных слов и внимания к Аленке.'],
+          ['Момент сохраняется', 'Выбранный сюрприз появляется на странице “Моменты”.'],
+          ['Можно менять настроение', 'Новый формат легко оформить отдельно для другой даты.'],
         ].map(([title, text]) => (
           <article key={title}>
-            <span>ALIF</span>
+            <span>LOVE</span>
             <strong>{title}</strong>
             <p>{text}</p>
           </article>
@@ -985,7 +1011,7 @@ function PricingPage({ selectedPlanId, onSelectPlan }) {
 function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onProfileChange, onRequireLogin, onRequireRegister }) {
   const [selectedSlot, setSelectedSlot] = useState(bookingSlots[0]);
   const [method, setMethod] = useState('card');
-  const [promoCode, setPromoCode] = useState(profile.promoCode || 'ALIFSTART');
+  const [promoCode, setPromoCode] = useState(profile.promoCode || 'ALENKA');
   const [contact, setContact] = useState({
     name: profile.name || '',
     email: profile.email || '',
@@ -1022,7 +1048,7 @@ function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onP
       userName: contact.name.trim(),
       email: contact.email.trim().toLowerCase(),
       phone: contact.phone,
-      paymentStatus: 'Оплачено / демо',
+      paymentStatus: 'Сохранено / демо',
     };
     onProfileChange({ ...contact, promoCode: cleanPromo, planId: selectedPlan.id });
     onCompletePayment(nextCourse);
@@ -1031,14 +1057,14 @@ function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onP
   return (
     <div className="page">
       <PageHero
-        eyebrow="Оплата и запись"
-        title={`Оформление тарифа ${selectedPlan.name}`}
-        visual={heroPayment}
+        eyebrow="Оформление сюрприза"
+        title={`Формат “${selectedPlan.name}” для Аленки`}
+        visual={alenkaDeskMirror}
       />
       <section className="checkout-pro">
         <div className="checkout-main">
           <div className="checkout-steps pro">
-            {['Курс', 'Контакты', 'Оплата'].map((item, index) => (
+            {['Формат', 'Контакты', 'Сюрприз'].map((item, index) => (
               <span className="done" key={item}>{index + 1}. {item}</span>
             ))}
           </div>
@@ -1046,7 +1072,7 @@ function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onP
           <section className="checkout-card selected-course-card">
             <div className="section-head">
               <div>
-                <p className="eyebrow">Выбранный курс</p>
+                <p className="eyebrow">Выбранный формат</p>
                 <h2>{selectedPlan.name}</h2>
               </div>
               <strong>{formatPrice(selectedPlan.price)}</strong>
@@ -1060,10 +1086,10 @@ function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onP
           <section className="checkout-card booking-pro">
             <div className="section-head">
               <div>
-                <p className="eyebrow">Запись</p>
-                <h2>Дата старта</h2>
+                <p className="eyebrow">Дата</p>
+                <h2>Когда сделать приятно</h2>
               </div>
-              <span><CalendarDays size={18} /> ближайшие группы</span>
+              <span><CalendarDays size={18} /> ближайшие вечера</span>
             </div>
             <div className="slot-grid-pro">
               {bookingSlots.map((slot) => (
@@ -1080,7 +1106,7 @@ function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onP
             <div className="section-head">
               <div>
                 <p className="eyebrow">Контакты</p>
-                <h2>Куда открыть доступ</h2>
+                <h2>Кому посвятить</h2>
               </div>
               <span><Lock size={18} /> сохраняется локально</span>
             </div>
@@ -1094,8 +1120,8 @@ function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onP
           <section className="checkout-card">
             <div className="section-head">
               <div>
-                <p className="eyebrow">Способ оплаты</p>
-                <h2>Платежные данные</h2>
+                <p className="eyebrow">Способ заботы</p>
+                <h2>Как оформить обещание</h2>
               </div>
               <span><CreditCard size={18} /> демо-режим</span>
             </div>
@@ -1109,9 +1135,9 @@ function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onP
             </div>
             {method === 'card' && (
               <div className="card-fields">
-                <label className="field wide">Номер карты<input value={card.number} onChange={(event) => setCard((current) => ({ ...current, number: event.target.value }))} placeholder="0000 0000 0000 0000" /></label>
-                <label className="field">Срок<input value={card.date} onChange={(event) => setCard((current) => ({ ...current, date: event.target.value }))} placeholder="MM/YY" /></label>
-                <label className="field">CVC<input value={card.cvc} onChange={(event) => setCard((current) => ({ ...current, cvc: event.target.value }))} placeholder="000" /></label>
+                <label className="field wide">Идея подарка<input value={card.number} onChange={(event) => setCard((current) => ({ ...current, number: event.target.value }))} placeholder="цветы, письмо, прогулка" /></label>
+                <label className="field">Дата<input value={card.date} onChange={(event) => setCard((current) => ({ ...current, date: event.target.value }))} placeholder="дд/мм" /></label>
+                <label className="field">Код<input value={card.cvc} onChange={(event) => setCard((current) => ({ ...current, cvc: event.target.value }))} placeholder="love" /></label>
               </div>
             )}
           </section>
@@ -1123,26 +1149,26 @@ function PaymentPage({ profile, selectedPlan, isLoggedIn, onCompletePayment, onP
           <p>{selectedSlot.day}, {selectedSlot.date} · {selectedSlot.time}</p>
           <PromoInput value={promoCode} onChange={setPromoCode} promo={promo} discount={discount} />
           <div className="summary-lines">
-            <span><small>Курс</small><strong>{formatPrice(selectedPlan.price)}</strong></span>
-            <span><small>Скидка</small><strong>{discount ? `-${formatPrice(discount)}` : '0 ₽'}</strong></span>
-            <span className="total"><small>К оплате</small><strong>{formatPrice(total)}</strong></span>
+            <span><small>Формат</small><strong>{formatPrice(selectedPlan.price)}</strong></span>
+            <span><small>Нежность</small><strong>{discount ? `-${formatPrice(discount)}` : '0 ₽'}</strong></span>
+            <span className="total"><small>Итог</small><strong>{formatPrice(total)}</strong></span>
           </div>
           {!isLoggedIn && (
             <div className="checkout-auth-lock">
               <Lock size={18} />
               <div>
-                <strong>Войдите перед оплатой</strong>
-                <p>Так курс закрепится за вашим аккаунтом и появится в разделе “Мои курсы”.</p>
+                <strong>Войдите перед сохранением</strong>
+                <p>Так сюрприз закрепится за профилем и появится в разделе “Моменты”.</p>
               </div>
-              <button type="button" onClick={onRequireLogin}>Вход</button>
-              <button type="button" onClick={onRequireRegister}>Регистрация</button>
+              <button type="button" onClick={onRequireLogin}>Войти</button>
+              <button type="button" onClick={onRequireRegister}>Создать момент</button>
             </div>
           )}
           <label className="checkout-consent">
             <input type="checkbox" checked={accepted} onChange={() => setAccepted((value) => !value)} />
-            <span>Согласен с условиями доступа к курсу</span>
+            <span>Согласен сделать Аленке приятно</span>
           </label>
-          <ActionButton icon={Receipt} onClick={submitPayment} disabled={!canPay || !isLoggedIn}>Оплатить курс</ActionButton>
+          <ActionButton icon={Receipt} onClick={submitPayment} disabled={!canPay || !isLoggedIn}>Сохранить сюрприз</ActionButton>
         </aside>
       </section>
     </div>
@@ -1156,26 +1182,26 @@ function CoursesPage({ courses, onToggleLesson, onCompleteCourse }) {
   return (
     <div className="page">
       <PageHero
-        eyebrow="Мои курсы"
-        title="Купленные курсы и доступы"
-        visual={heroCourses}
+        eyebrow="Моменты"
+        title="Сохраненные сюрпризы для Аленки"
+        visual={alenkaBlue}
       />
       <section className="courses-page">
         {courses.length === 0 ? (
           <article className="empty-courses">
             <BookOpen size={34} />
-            <h2>Пока нет купленных курсов</h2>
-            <p>Выбери тариф, пройди оплату, и курс появится здесь автоматически.</p>
-            <LinkButton to="pricing" icon={ArrowRight}>Выбрать тариф</LinkButton>
+            <h2>Пока нет сохраненных моментов</h2>
+            <p>Выбери формат сюрприза, сохрани его, и он появится здесь автоматически.</p>
+            <LinkButton to="pricing" icon={ArrowRight}>Выбрать сюрприз</LinkButton>
           </article>
         ) : (
           <>
             <div className="section-head">
               <div>
                 <p className="eyebrow">Активные</p>
-                <h2>Текущие покупки</h2>
+                <h2>Текущие сюрпризы</h2>
               </div>
-              <LinkButton to="pricing" variant="outline">Добавить курс</LinkButton>
+              <LinkButton to="pricing" variant="outline">Добавить момент</LinkButton>
             </div>
             <div className="course-grid">
               {activeCourses.map((course) => {
@@ -1190,7 +1216,7 @@ function CoursesPage({ courses, onToggleLesson, onCompleteCourse }) {
                     <div className="course-progress">
                       <i style={{ width: `${progress}%` }} />
                     </div>
-                    <strong>{progress}% курса</strong>
+                    <strong>{progress}% готово</strong>
                     <div className="course-lesson-checklist">
                       {courseLessons.map((lesson, index) => {
                         const isDone = completedLessonIds.includes(lesson.id);
@@ -1206,13 +1232,13 @@ function CoursesPage({ courses, onToggleLesson, onCompleteCourse }) {
                               <strong>{lesson.title}</strong>
                               <small>{lesson.duration} минут</small>
                             </div>
-                            <b>{isDone ? 'пройден' : 'не пройден'}</b>
+                            <b>{isDone ? 'готово' : 'в планах'}</b>
                           </button>
                         );
                       })}
                     </div>
                     <div className="course-actions">
-                      <ActionButton variant="outline" onClick={() => onCompleteCourse(course.id)}>Отметить пройденным</ActionButton>
+                      <ActionButton variant="outline" onClick={() => onCompleteCourse(course.id)}>Отметить подаренным</ActionButton>
                     </div>
                   </article>
                 );
@@ -1221,13 +1247,13 @@ function CoursesPage({ courses, onToggleLesson, onCompleteCourse }) {
 
             <section className="course-history">
               <p className="eyebrow">История</p>
-              <h2>Пройденные курсы</h2>
+              <h2>Подаренные моменты</h2>
               <div className="history-list">
                 {(completedCourses.length ? completedCourses : courses.slice(0, 1)).map((course) => (
                   <article key={`${course.id}-history`}>
                     <span>{course.planName}</span>
                     <strong>{formatPrice(course.total)}</strong>
-                    <small>{course.status === 'completed' ? 'завершен' : 'активен'} · промокод {course.promoCode || 'нет'}</small>
+                    <small>{course.status === 'completed' ? 'подарен' : 'в процессе'} · код {course.promoCode || 'нет'}</small>
                   </article>
                 ))}
               </div>
@@ -1322,18 +1348,18 @@ function AuthPage({ mode = 'login', onLogin, onRegister }) {
     <div className="page">
       <section className="auth-section">
         <form className="auth-card" onSubmit={submit}>
-          <p className="eyebrow">ALIF Arabic</p>
+          <p className="eyebrow">Аленка Glow</p>
           <div className="auth-intro" key={`${activeMode}-${step}`}>
-            <h2>{step === 'code' ? 'Введите код из письма' : activeMode === 'register' ? 'Создать аккаунт' : 'Войти по почте'}</h2>
+            <h2>{step === 'code' ? 'Введите код из письма' : activeMode === 'register' ? 'Создать момент' : 'Войти в уголок'}</h2>
             <p className="auth-copy">
               {step === 'code'
                 ? `Мы отправили код на ${form.email.trim().toLowerCase()}.`
-                : 'Сначала укажи почту, затем появится поле для подтверждения кода.'}
+                : 'Сначала укажи почту, затем появится поле для подтверждения и сохранения моментов.'}
             </p>
           </div>
           <div className={`auth-switch ${activeMode === 'register' ? 'register' : 'login'}`}>
             <button className={activeMode === 'login' ? 'active' : ''} type="button" onClick={() => switchMode('login')}>Вход</button>
-            <button className={activeMode === 'register' ? 'active' : ''} type="button" onClick={() => switchMode('register')}>Регистрация</button>
+            <button className={activeMode === 'register' ? 'active' : ''} type="button" onClick={() => switchMode('register')}>Момент</button>
           </div>
 
           {step === 'email' ? (
@@ -1382,9 +1408,9 @@ function AuthPage({ mode = 'login', onLogin, onRegister }) {
         </form>
         <aside className="auth-benefits">
           {[
-            ['01', 'Профиль', 'Контакты, цель, уровень и настройки.'],
-            ['02', 'Курсы', 'Все покупки и активные доступы отдельно от профиля.'],
-            ['03', 'История', 'Завершенные курсы остаются внизу кабинета.'],
+            ['01', 'Аленка', 'Фото, город, настроение и любимые детали.'],
+            ['02', 'Моменты', 'Все сохраненные сюрпризы и активные планы отдельно.'],
+            ['03', 'История', 'Подаренные моменты остаются внизу личного уголка.'],
           ].map(([num, title, text]) => (
             <article key={title}>
               <span>{num}</span>
@@ -1411,7 +1437,7 @@ function ProfilePage({
   onLogout,
 }) {
   const [draft, setDraft] = useState(profile);
-  const [promoCode, setPromoCode] = useState(profile.promoCode || booking?.promoCode || 'ALIFSTART');
+  const [promoCode, setPromoCode] = useState(profile.promoCode || booking?.promoCode || 'ALENKA');
   const activePromo = getPromo(promoCode);
   const discount = getDiscount(selectedPlan, promoCode);
   const currentTotal = Math.max(selectedPlan.price - discount, 0);
@@ -1420,7 +1446,7 @@ function ProfilePage({
 
   useEffect(() => {
     setDraft(profile);
-    setPromoCode(profile.promoCode || booking?.promoCode || 'ALIFSTART');
+    setPromoCode(profile.promoCode || booking?.promoCode || 'ALENKA');
   }, [profile, booking?.promoCode]);
 
   function update(field, value) {
@@ -1447,18 +1473,18 @@ function ProfilePage({
         <aside className="student-card">
           <label className="avatar-upload">
             <input accept="image/*" type="file" onChange={handlePhoto} />
-            {draft.photo ? <img src={draft.photo} alt={draft.name || 'Фото ученика'} /> : <span>{initials(draft.name)}</span>}
+            {draft.photo ? <img src={draft.photo} alt={draft.name || 'Фото Аленки'} /> : <span>{initials(draft.name)}</span>}
             <b><Camera size={16} /> Фото</b>
           </label>
-          <h2>{draft.name || 'Ученик'}</h2>
-          <p>{draft.city} · уровень {draft.level}</p>
+          <h2>{draft.name || 'Аленка'}</h2>
+          <p>{draft.city} · настроение {draft.level}</p>
           <div className="profile-mini-stats">
-            <span>{courses.length} покупок</span>
-            <span>{draft.minutes} мин/день</span>
-            <span>{completedTasks.length}/{tasks.length} задач</span>
+            <span>{courses.length} моментов</span>
+            <span>{draft.minutes} мин заботы</span>
+            <span>{completedTasks.length}/{tasks.length} идей</span>
           </div>
           <div className="student-actions">
-            <LinkButton to="courses" variant="primary" icon={BookOpen}>Мои курсы</LinkButton>
+            <LinkButton to="courses" variant="primary" icon={BookOpen}>Моменты</LinkButton>
             <ActionButton variant="outline danger" onClick={onLogout}>Выйти</ActionButton>
           </div>
         </aside>
@@ -1466,39 +1492,39 @@ function ProfilePage({
         <div className="profile-workspace">
           <section className="profile-summary">
             <article className="summary-tile dark">
-              <span>Активный курс</span>
+              <span>Активный сюрприз</span>
               <strong>{activeCourse?.planName || booking?.planName || selectedPlan.name}</strong>
               <p>{activeCourse?.format || booking?.format || selectedPlan.format}</p>
             </article>
             <article className="summary-tile">
-              <span>Старт</span>
+              <span>Дата</span>
               <strong>{booking ? booking.date : 'Не выбран'}</strong>
-              <p>{booking ? `${booking.day}, ${booking.time}` : 'Оформление доступно на странице оплаты.'}</p>
+              <p>{booking ? `${booking.day}, ${booking.time}` : 'Оформление доступно на странице сюрприза.'}</p>
             </article>
             <article className="summary-tile">
-              <span>Оплачено</span>
+              <span>Сохранено</span>
               <strong>{activeCourse ? formatPrice(activeCourse.total) : '0 ₽'}</strong>
-              <p>{activeCourse ? `Способ: ${activeCourse.method}` : 'Курс появится после оплаты.'}</p>
+              <p>{activeCourse ? `Способ: ${activeCourse.method}` : 'Момент появится после сохранения.'}</p>
             </article>
           </section>
 
           <section className="promo-card profile-promo">
             <div>
-              <p className="eyebrow">Промокод</p>
+              <p className="eyebrow">Код настроения</p>
               <h2>{activePromo ? activePromo.title : 'Код не применен'}</h2>
-              <p>{activePromo ? activePromo.text : 'Сохрани рабочий промокод в профиле, чтобы он подставлялся на странице оплаты.'}</p>
+              <p>{activePromo ? activePromo.text : 'Сохрани код в профиле, чтобы он подставлялся на странице сюрприза.'}</p>
             </div>
             <div className="promo-control">
               <PromoInput value={promoCode} onChange={setPromoCode} promo={activePromo} discount={discount} compact />
               <strong>{discount ? `-${formatPrice(discount)}` : '0 ₽'}</strong>
-              <span>Итого по текущему тарифу: {formatPrice(currentTotal)}</span>
+              <span>Итого по текущему формату: {formatPrice(currentTotal)}</span>
               <ActionButton variant="outline" icon={BadgePercent} onClick={() => saveProfile()}>Сохранить код</ActionButton>
             </div>
           </section>
 
           <section className="profile-bottom-grid">
             <div className="tasks-card">
-              <p className="eyebrow">На сегодня</p>
+              <p className="eyebrow">Для Аленки</p>
               {tasks.map((task) => (
                 <label className="task-row" key={task}>
                   <input checked={completedTasks.includes(task)} type="checkbox" onChange={() => onToggleTask(task)} />
@@ -1507,8 +1533,8 @@ function ProfilePage({
               ))}
             </div>
             <label className="note-box profile-note">
-              Заметка к обучению
-              <textarea value={note} onChange={(event) => onNoteChange(event.target.value)} placeholder="Например: повторить формы букв перед созвоном" />
+              Заметка к сюрпризу
+              <textarea value={note} onChange={(event) => onNoteChange(event.target.value)} placeholder="Например: купить цветы, написать письмо, выбрать место для прогулки" />
             </label>
           </section>
 
@@ -1516,7 +1542,7 @@ function ProfilePage({
             <div className="section-head">
               <div>
                 <p className="eyebrow">Данные</p>
-                <h2>Профиль и настройки</h2>
+                <h2>Аленка и настройки</h2>
               </div>
               <span><ShieldCheck size={18} /> сохраняется локально</span>
             </div>
@@ -1525,21 +1551,21 @@ function ProfilePage({
               <label className="field">Email<input value={draft.email} onChange={(event) => update('email', event.target.value)} /></label>
               <label className="field">Телефон<input value={draft.phone} onChange={(event) => update('phone', event.target.value)} /></label>
               <label className="field">Город<input value={draft.city} onChange={(event) => update('city', event.target.value)} /></label>
-              <label className="field wide">Цель<input value={draft.goal} onChange={(event) => update('goal', event.target.value)} /></label>
-              <label className="field">Уровень
+              <label className="field wide">Что про нее важно<input value={draft.goal} onChange={(event) => update('goal', event.target.value)} /></label>
+              <label className="field">Настроение
                 <select value={draft.level} onChange={(event) => update('level', event.target.value)}>
-                  <option>A0</option>
-                  <option>A1</option>
-                  <option>A2</option>
+                  <option>Glow</option>
+                  <option>Love</option>
+                  <option>Magic</option>
                 </select>
               </label>
-              <label className="field">Минут в день
+              <label className="field">Минут заботы
                 <input min="10" max="90" type="number" value={draft.minutes} onChange={(event) => update('minutes', Number(event.target.value))} />
               </label>
             </div>
             <div className="settings-grid compact-settings">
               <button className={draft.notifications ? 'active' : ''} type="button" onClick={() => update('notifications', !draft.notifications)}>
-                <CheckCircle2 size={16} /> Уведомления
+                <CheckCircle2 size={16} /> Напоминания
               </button>
               <button className={draft.darkMode ? 'active' : ''} type="button" onClick={() => update('darkMode', !draft.darkMode)}>
                 <CheckCircle2 size={16} /> Темная тема
@@ -1547,26 +1573,26 @@ function ProfilePage({
             </div>
             <div className="profile-settings-actions">
               <ActionButton onClick={() => saveProfile()}>Сохранить изменения</ActionButton>
-              <LinkButton to="pricing" variant="outline">Выбрать тариф</LinkButton>
+              <LinkButton to="pricing" variant="outline">Выбрать сюрприз</LinkButton>
             </div>
           </section>
 
           <section className="course-history profile-course-history">
             <p className="eyebrow">История</p>
-            <h2>Пройденные курсы</h2>
+            <h2>Подаренные моменты</h2>
             <div className="history-list">
               {(completedCourses.length ? completedCourses : courses.slice(0, 2)).map((course) => (
                 <article key={`${course.id}-profile-history`}>
                   <span>{course.planName}</span>
                   <strong>{formatPrice(course.total)}</strong>
-                  <small>{course.status === 'completed' ? 'завершен' : 'активен'} · {course.start?.date || 'дата не выбрана'}</small>
+                  <small>{course.status === 'completed' ? 'подарен' : 'в процессе'} · {course.start?.date || 'дата не выбрана'}</small>
                 </article>
               ))}
               {courses.length === 0 && (
                 <article>
                   <span>Пока пусто</span>
-                  <strong>Нет покупок</strong>
-                  <small>История появится после оплаты курса.</small>
+                  <strong>Нет моментов</strong>
+                  <small>История появится после сохранения сюрприза.</small>
                 </article>
               )}
             </div>
@@ -1622,12 +1648,12 @@ function FaqPage({ profile }) {
   return (
     <div className="page">
       <PageHero
-        eyebrow="Поддержка"
-        title="Вопросы перед стартом"
-        visual={heroFaq}
+        eyebrow="Письма"
+        title="Теплые слова для Аленки"
+        visual={alenkaMono}
       >
         <label className="search-box">
-          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Найти вопрос" />
+          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Найти мысль" />
         </label>
       </PageHero>
       <section className="faq-section">
@@ -1644,9 +1670,9 @@ function FaqPage({ profile }) {
           ))}
         </div>
         <aside className="support-card">
-          <p className="eyebrow">Связь</p>
-          <h2>Нужна помощь?</h2>
-          <p>Оставь заявку, и менеджер подскажет тариф, график и формат обучения.</p>
+          <p className="eyebrow">Послание</p>
+          <h2>Оставить слова?</h2>
+          <p>Напиши сообщение, идею сюрприза или фразу, которую хочется сохранить для Аленки.</p>
           <form className="support-form" onSubmit={submitFeedback}>
             <label className="field">
               Имя
@@ -1662,10 +1688,10 @@ function FaqPage({ profile }) {
             </label>
             <label className="field">
               Сообщение
-              <textarea value={feedback.message} onChange={(event) => updateFeedback('message', event.target.value)} placeholder="Напиши вопрос или удобное время для связи" />
+              <textarea value={feedback.message} onChange={(event) => updateFeedback('message', event.target.value)} placeholder="Напиши для Аленки теплую мысль или идею сюрприза" />
             </label>
             <ActionButton type="submit" disabled={!canSendFeedback || isSendingFeedback}>
-              {isSendingFeedback ? 'Отправляем...' : 'Отправить заявку'}
+              {isSendingFeedback ? 'Отправляем...' : 'Отправить послание'}
             </ActionButton>
             {feedbackStatus && <strong>{feedbackStatus}</strong>}
             {feedbackError && <strong className="support-error">{feedbackError}</strong>}
@@ -1694,9 +1720,9 @@ function AdminLogin({ onLogin }) {
   return (
     <section className="admin-page admin-login-page">
       <form className="admin-login-card" onSubmit={submit}>
-        <p className="eyebrow">ALIF Arabic</p>
+        <p className="eyebrow">Аленка Glow</p>
         <h1>Вход админа</h1>
-        <p>Отдельная панель управления сайтом без подтверждения кода на почту.</p>
+        <p>Отдельная панель для сохраненных моментов, посланий и подготовки сюрпризов.</p>
         <label className="field">
           Логин
           <input value={credentials.login} onChange={(event) => setCredentials((current) => ({ ...current, login: event.target.value }))} placeholder="admin" />
@@ -1735,7 +1761,7 @@ function AdminPage({
     return matchesSearch && matchesTariff && matchesStatus;
   });
 
-  const activeStudents = adminData.students.filter((student) => ['Новый', 'Обучается'].includes(student.learningStatus)).length;
+  const activeStudents = adminData.students.filter((student) => ['Новый', 'Готовится'].includes(student.learningStatus)).length;
 
   function updateStudent(student, patch) {
     onStudentUpdate(student.id, {
@@ -1758,7 +1784,7 @@ function AdminPage({
       completedLessonIds: lessonState.completedLessonIds,
       currentLesson: lessonState.currentLesson,
       progress: lessonState.progress,
-      learningStatus: lessonState.progress === 100 ? 'Завершил' : 'Обучается',
+      learningStatus: lessonState.progress === 100 ? 'Подарен' : 'Готовится',
       updatedAt: new Date().toISOString(),
     };
 
@@ -1770,25 +1796,25 @@ function AdminPage({
     <section className="admin-page">
       <header className="admin-topbar">
         <div>
-          <p className="eyebrow">ALIF Arabic</p>
-          <h1>Панель администратора</h1>
-          <p>Регистрации, купленные курсы и прохождение учеников сохраняются в localStorage.</p>
+          <p className="eyebrow">Аленка Glow</p>
+          <h1>Панель моментов</h1>
+          <p>Регистрации, сохраненные сюрпризы и подготовка моментов сохраняются в localStorage.</p>
         </div>
         <button className="button outline" type="button" onClick={onLogout}>Выйти</button>
       </header>
 
       <section className="admin-stats">
-        <article><span>Пользователи</span><strong>{adminData.users.length}</strong></article>
-        <article><span>Записи на курс</span><strong>{adminData.courses.length}</strong></article>
-        <article><span>Купленные тарифы</span><strong>{adminData.courses.length}</strong></article>
-        <article><span>Активные ученики</span><strong>{activeStudents}</strong></article>
+        <article><span>Участники</span><strong>{adminData.users.length}</strong></article>
+        <article><span>Сюрпризы</span><strong>{adminData.courses.length}</strong></article>
+        <article><span>Форматы</span><strong>{adminData.courses.length}</strong></article>
+        <article><span>Активные моменты</span><strong>{activeStudents}</strong></article>
       </section>
 
       <section className="admin-card">
         <div className="admin-section-head">
           <div>
-            <p className="eyebrow">Новые регистрации</p>
-            <h2>Пользователи сайта</h2>
+            <p className="eyebrow">Новые входы</p>
+            <h2>Люди сайта</h2>
           </div>
         </div>
         <div className="admin-table-wrap">
@@ -1797,7 +1823,7 @@ function AdminPage({
               <tr>
                 <th>Имя</th>
                 <th>Email</th>
-                <th>Дата регистрации</th>
+                <th>Дата входа</th>
                 <th>Статус</th>
               </tr>
             </thead>
@@ -1818,8 +1844,8 @@ function AdminPage({
       <section className="admin-card">
         <div className="admin-section-head">
           <div>
-            <p className="eyebrow">Приобретенные курсы</p>
-            <h2>Оплаты и записи</h2>
+            <p className="eyebrow">Сохраненные сюрпризы</p>
+            <h2>Форматы и даты</h2>
           </div>
         </div>
         <div className="admin-table-wrap">
@@ -1828,11 +1854,11 @@ function AdminPage({
               <tr>
                 <th>Имя</th>
                 <th>Email</th>
-                <th>Тариф</th>
-                <th>Дата старта</th>
-                <th>Промокод</th>
+                <th>Формат</th>
+                <th>Дата</th>
+                <th>Код</th>
                 <th>Итог</th>
-                <th>Оплата</th>
+                <th>Статус</th>
               </tr>
             </thead>
             <tbody>
@@ -1855,8 +1881,8 @@ function AdminPage({
       <section className="admin-card">
         <div className="admin-section-head">
           <div>
-            <p className="eyebrow">Прохождение курса</p>
-            <h2>Управление учениками</h2>
+            <p className="eyebrow">Подготовка момента</p>
+            <h2>Управление сюрпризами</h2>
           </div>
         </div>
         <div className="admin-filters">
@@ -1865,7 +1891,7 @@ function AdminPage({
             <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Имя или email" />
           </label>
           <label className="field">
-            Тариф
+            Формат
             <select value={tariffFilter} onChange={(event) => setTariffFilter(event.target.value)}>
               <option>Все</option>
               {adminTariffs.map((tariff) => <option key={tariff}>{tariff}</option>)}
@@ -1885,11 +1911,11 @@ function AdminPage({
               <tr>
                 <th>Имя</th>
                 <th>Email</th>
-                <th>Тариф</th>
-                <th>Текущий урок</th>
+                <th>Формат</th>
+                <th>Текущий шаг</th>
                 <th>Процент</th>
-                <th>Уроки</th>
-                <th>Статус обучения</th>
+                <th>Шаги</th>
+                <th>Статус подготовки</th>
               </tr>
             </thead>
             <tbody>
@@ -1933,7 +1959,7 @@ function AdminPage({
               ))}
               {filteredStudents.length === 0 && (
                 <tr>
-                  <td colSpan="7" className="admin-empty">По этим фильтрам учеников нет</td>
+                  <td colSpan="7" className="admin-empty">По этим фильтрам моментов нет</td>
                 </tr>
               )}
             </tbody>
@@ -1947,8 +1973,8 @@ function AdminPage({
 function Footer() {
   return (
     <footer>
-      <span>ALIF ARABIC</span>
-      <span>Reading / Speaking / Culture</span>
+      <span>АЛЕНКА GLOW</span>
+      <span>Love / Moments / Forever</span>
       <span>2026</span>
     </footer>
   );
@@ -1960,17 +1986,17 @@ function Toast({ message }) {
 
 function App() {
   const [page, setPage] = useState(getPageFromHash);
-  const [profile, setProfile] = useState(() => getStored('alif-profile', defaultProfile));
-  const [selectedPlanId, setSelectedPlanId] = useState(() => getStored('alif-plan', profile.planId || 'pro'));
-  const [completedTasks, setCompletedTasks] = useState(() => getStored('alif-tasks', [tasks[0]]));
-  const [note, setNote] = useState(() => getStored('alif-note', ''));
-  const [booking, setBooking] = useState(() => getStored('alif-booking', null));
-  const [courses, setCourses] = useState(() => getStored('alif-courses', []));
-  const [registrations, setRegistrations] = useState(() => getStored('alif-registrations', []));
-  const [adminStudents, setAdminStudents] = useState(() => getStored('alif-admin-students', []));
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => getStored('alif-admin-auth', false));
+  const [profile, setProfile] = useState(() => getStored('alenka-profile', defaultProfile));
+  const [selectedPlanId, setSelectedPlanId] = useState(() => getStored('alenka-plan', profile.planId || 'pro'));
+  const [completedTasks, setCompletedTasks] = useState(() => getStored('alenka-tasks', [tasks[0]]));
+  const [note, setNote] = useState(() => getStored('alenka-note', ''));
+  const [booking, setBooking] = useState(() => getStored('alenka-booking', null));
+  const [courses, setCourses] = useState(() => getStored('alenka-courses', []));
+  const [registrations, setRegistrations] = useState(() => getStored('alenka-registrations', []));
+  const [adminStudents, setAdminStudents] = useState(() => getStored('alenka-admin-students', []));
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => getStored('alenka-admin-auth', false));
   const [toast, setToast] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(() => getStored('alif-auth', false));
+  const [isLoggedIn, setIsLoggedIn] = useState(() => getStored('alenka-auth', false));
   const [authMode, setAuthMode] = useState('login');
   const [pendingCheckout, setPendingCheckout] = useState(false);
 
@@ -1989,18 +2015,18 @@ function App() {
     return () => window.removeEventListener('hashchange', handleRoute);
   }, []);
 
-  useEffect(() => localStorage.setItem('alif-profile', JSON.stringify(profile)), [profile]);
-  useEffect(() => localStorage.setItem('alif-plan', JSON.stringify(selectedPlanId)), [selectedPlanId]);
-  useEffect(() => localStorage.setItem('alif-tasks', JSON.stringify(completedTasks)), [completedTasks]);
-  useEffect(() => localStorage.setItem('alif-note', JSON.stringify(note)), [note]);
-  useEffect(() => localStorage.setItem('alif-booking', JSON.stringify(booking)), [booking]);
-  useEffect(() => localStorage.setItem('alif-courses', JSON.stringify(courses)), [courses]);
-  useEffect(() => localStorage.setItem('alif-registrations', JSON.stringify(registrations)), [registrations]);
-  useEffect(() => localStorage.setItem('alif-admin-students', JSON.stringify(adminStudents)), [adminStudents]);
-  useEffect(() => localStorage.setItem('alif-auth', JSON.stringify(isLoggedIn)), [isLoggedIn]);
+  useEffect(() => localStorage.setItem('alenka-profile', JSON.stringify(profile)), [profile]);
+  useEffect(() => localStorage.setItem('alenka-plan', JSON.stringify(selectedPlanId)), [selectedPlanId]);
+  useEffect(() => localStorage.setItem('alenka-tasks', JSON.stringify(completedTasks)), [completedTasks]);
+  useEffect(() => localStorage.setItem('alenka-note', JSON.stringify(note)), [note]);
+  useEffect(() => localStorage.setItem('alenka-booking', JSON.stringify(booking)), [booking]);
+  useEffect(() => localStorage.setItem('alenka-courses', JSON.stringify(courses)), [courses]);
+  useEffect(() => localStorage.setItem('alenka-registrations', JSON.stringify(registrations)), [registrations]);
+  useEffect(() => localStorage.setItem('alenka-admin-students', JSON.stringify(adminStudents)), [adminStudents]);
+  useEffect(() => localStorage.setItem('alenka-auth', JSON.stringify(isLoggedIn)), [isLoggedIn]);
   useEffect(() => {
-    if (isAdminLoggedIn) localStorage.setItem('alif-admin-auth', JSON.stringify(true));
-    else localStorage.removeItem('alif-admin-auth');
+    if (isAdminLoggedIn) localStorage.setItem('alenka-admin-auth', JSON.stringify(true));
+    else localStorage.removeItem('alenka-admin-auth');
   }, [isAdminLoggedIn]);
 
   useEffect(() => {
@@ -2027,14 +2053,14 @@ function App() {
   function selectPlan(planId, goToPayment = false) {
     setSelectedPlanId(planId);
     setProfile((current) => ({ ...current, planId }));
-    setToast('Тариф выбран');
+    setToast('Сюрприз выбран');
     if (goToPayment) {
       if (isLoggedIn) {
         navigate('payment');
       } else {
         setPendingCheckout(true);
         setAuthMode('register');
-        setToast('Войдите или зарегистрируйтесь, чтобы оформить тариф');
+        setToast('Войдите или создайте момент, чтобы сохранить сюрприз');
         navigate('profile');
       }
     }
@@ -2098,7 +2124,7 @@ function App() {
     setProfile(nextProfile);
     syncRegistration(nextProfile, profile.email, 'Новый');
     setIsLoggedIn(true);
-    setToast('Аккаунт создан');
+    setToast('Момент создан');
     if (pendingCheckout) {
       setPendingCheckout(false);
       navigate('payment');
@@ -2120,7 +2146,7 @@ function App() {
     setCourses((current) => [course, ...current]);
     setSelectedPlanId(course.planId);
     setIsLoggedIn(true);
-    setToast('Курс оплачен и добавлен в “Мои курсы”');
+    setToast('Сюрприз сохранен и добавлен в “Моменты”');
     navigate('courses');
   }
 
@@ -2128,7 +2154,7 @@ function App() {
     setCourses((current) => current.map((course) => (
       course.id === courseId ? { ...course, status: 'completed', completedAt: new Date().toISOString() } : course
     )));
-    setToast('Курс перенесен в историю');
+    setToast('Момент перенесен в историю');
   }
 
   function toggleCourseLesson(courseId, lessonId) {
