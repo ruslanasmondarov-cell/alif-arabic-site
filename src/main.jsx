@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   ArrowRight,
@@ -8,6 +8,9 @@ import {
   Camera,
   CheckCircle2,
   CreditCard,
+  Music,
+  Pause,
+  Play,
   Lock,
   Receipt,
   ShieldCheck,
@@ -22,6 +25,9 @@ import alenkaBlue from './assets/photo_6_2026-06-17_19-45-00.jpg';
 import alenkaHalfFace from './assets/photo_7_2026-06-17_19-45-00.jpg';
 import alenkaMono from './assets/photo_8_2026-06-17_19-45-00.jpg';
 import alenkaDeskMirror from './assets/photo_9_2026-06-17_19-45-00.jpg';
+import songPolka from './assets/Polka_-_CHem_prezhde_81064968.mp3';
+import songAsyamf from './assets/ASYAMF_-_Ukhodil_79270221.mp3';
+import songLajjla from './assets/LAJJLA_-_ULOMAJJ_80842644.mp3';
 
 const alenkaGallery = [
   alenkaMirrorClose,
@@ -33,6 +39,12 @@ const alenkaGallery = [
   alenkaHalfFace,
   alenkaMono,
   alenkaDeskMirror,
+];
+
+const musicTracks = [
+  { title: 'Polka - Чем прежде', src: songPolka },
+  { title: 'ASYAMF - Уходил', src: songAsyamf },
+  { title: 'LAJJLA - ULOMAJJ', src: songLajjla },
 ];
 
 const pages = ['home', 'program', 'pricing', 'payment', 'courses', 'profile', 'faq', 'admin'];
@@ -1984,6 +1996,67 @@ function Toast({ message }) {
   return message ? <div className="toast">{message}</div> : null;
 }
 
+function MusicPlayer() {
+  const audioRef = useRef(null);
+  const [trackIndex, setTrackIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const currentTrack = musicTracks[trackIndex];
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !isPlaying) return;
+
+    audio.load();
+    const playPromise = audio.play();
+    if (playPromise?.catch) {
+      playPromise.catch(() => setIsPlaying(false));
+    }
+  }, [trackIndex, isPlaying]);
+
+  function togglePlayback() {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+      return;
+    }
+
+    const playPromise = audio.play();
+    if (playPromise?.then) {
+      playPromise
+        .then(() => setIsPlaying(true))
+        .catch(() => setIsPlaying(false));
+    } else {
+      setIsPlaying(true);
+    }
+  }
+
+  function playNextTrack() {
+    setTrackIndex((index) => (index + 1) % musicTracks.length);
+    setIsPlaying(true);
+  }
+
+  return (
+    <div className={`music-player ${isPlaying ? 'playing' : ''}`}>
+      <audio
+        ref={audioRef}
+        preload="auto"
+        src={currentTrack.src}
+        onEnded={playNextTrack}
+      />
+      <button type="button" onClick={togglePlayback} aria-label={isPlaying ? 'Поставить музыку на паузу' : 'Включить музыку'}>
+        {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+      </button>
+      <div>
+        <span><Music size={14} /> Музыка</span>
+        <strong>{currentTrack.title}</strong>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [page, setPage] = useState(getPageFromHash);
   const [profile, setProfile] = useState(() => getStored('alenka-profile', defaultProfile));
@@ -2276,6 +2349,7 @@ function App() {
       ))}
       {page === 'faq' && <FaqPage profile={profile} />}
       {page !== 'admin' && <Footer />}
+      {page !== 'admin' && <MusicPlayer />}
       <Toast message={toast} />
     </main>
   );
